@@ -2,6 +2,20 @@
 
 A new Flutter project.
 
+## Claude Code + DeepSeek V4 Pro
+
+Si queres usar Claude Code contra un proxy compatible con Anthropic y enrutarlo a DeepSeek V4 Pro, ya deje una guia y un launcher en el repo:
+
+- [Guia de setup](docs/claude-deepseek-proxy.md)
+- [Launcher de PowerShell](scripts/start-claude-deepseek.ps1)
+
+Resumen rapido:
+
+```powershell
+winget install Anthropic.ClaudeCode
+.\scripts\start-claude-deepseek.ps1 -ProxyBaseUrl "http://localhost:3000" -LaunchClaude
+```
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
