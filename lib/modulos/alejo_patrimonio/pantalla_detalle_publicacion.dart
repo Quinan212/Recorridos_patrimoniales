@@ -227,6 +227,7 @@ class _PantallaDetallePublicacionState
                     const SizedBox(height: 10),
                     Text(
                       widget.publicacion.descripcion,
+                      textAlign: TextAlign.justify,
                       style: GoogleFonts.inter(
                         fontSize: 15,
                         height: 1.7,
@@ -708,6 +709,7 @@ class _PantallaDetallePublicacionState
             'fundaciones, universidades y eventos culturales. '
             'Si te interesa que presentemos el proyecto en tu '
             'institucion, contactanos por cualquiera de estos medios.',
+            textAlign: TextAlign.justify,
             style: GoogleFonts.inter(
               fontSize: 14,
               height: 1.6,
@@ -716,13 +718,23 @@ class _PantallaDetallePublicacionState
           ),
           const SizedBox(height: 20),
 
-          // -- Email --
+          // -- Email Alan --
           _BotonContactoReal(
             icon: Icons.email_outlined,
-            label: 'Enviar mail',
+            label: 'Alan Gabriel Maillet',
             subtitle: 'alanmaillet51@gmail.com',
             color: const Color(0xFFEA4335),
             onTap: () => _lanzarUrl('mailto:alanmaillet51@gmail.com'),
+          ),
+          const SizedBox(height: 10),
+
+          // -- Email Flavia --
+          _BotonContactoReal(
+            icon: Icons.email_outlined,
+            label: 'Flavia Marisol Frigo',
+            subtitle: 'frigoflavia4@gmail.com',
+            color: const Color(0xFFEA4335),
+            onTap: () => _lanzarUrl('mailto:frigoflavia4@gmail.com'),
           ),
           const SizedBox(height: 10),
 

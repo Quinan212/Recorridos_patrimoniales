@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/servicio_dispositivo_admin.dart';
 
 class PantallaInfoAlejo extends StatelessWidget {
   const PantallaInfoAlejo({super.key});
@@ -11,8 +9,11 @@ class PantallaInfoAlejo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xFFF5F5F3),
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
+      child: SafeArea(
+        top: true,
+        bottom: true,
+        child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 40.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -74,12 +75,10 @@ class PantallaInfoAlejo extends StatelessWidget {
             // AUTORIA Y CREDITOS
             _armarSeccionCreditos(),
 
-            const SizedBox(height: 24),
-            _armarSeccionAdminDispositivo(context),
-
             const SizedBox(height: 100),
           ],
         ),
+      ),
       ).animate().fadeIn(duration: 600.ms),
     );
   }
@@ -305,93 +304,4 @@ class PantallaInfoAlejo extends StatelessWidget {
     );
   }
 
-  Widget _armarSeccionAdminDispositivo(BuildContext context) {
-    return FutureBuilder<EstadoDispositivoAdmin>(
-      future: const ServicioDispositivoAdmin().verificarDispositivoActual(),
-      builder: (context, snapshot) {
-        final estado = snapshot.data;
-        final identidad = estado?.identidad;
-
-        return Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    estado?.esAdmin == true
-                        ? Icons.admin_panel_settings
-                        : Icons.phone_android,
-                    color: estado?.esAdmin == true
-                        ? const Color(0xFFD32F2F)
-                        : const Color(0xFF1A1A1A),
-                    size: 20,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Dispositivo',
-                    style: GoogleFonts.inter(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF1A1A1A),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Text(
-                identidad?.label ?? 'Leyendo dispositivo...',
-                style: GoogleFonts.inter(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xFF4A4A4A),
-                ),
-              ),
-              const SizedBox(height: 8),
-              SelectableText(
-                identidad?.id ?? '...',
-                style: GoogleFonts.inter(fontSize: 12, color: Colors.grey[700]),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                estado?.mensaje ?? 'Comprobando acceso admin...',
-                style: GoogleFonts.inter(
-                  fontSize: 12,
-                  color: Colors.grey[600],
-                  height: 1.4,
-                ),
-              ),
-              const SizedBox(height: 12),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton.icon(
-                  onPressed: identidad == null
-                      ? null
-                      : () async {
-                          await Clipboard.setData(
-                            ClipboardData(text: identidad.id),
-                          );
-                          if (!context.mounted) return;
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('ID de dispositivo copiado'),
-                            ),
-                          );
-                        },
-                  icon: const Icon(Icons.copy, size: 16),
-                  label: const Text('Copiar ID'),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
 }

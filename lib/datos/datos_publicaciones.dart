@@ -53,7 +53,7 @@ class Publicacion {
 final List<Publicacion> publicacionesSeed = [
   Publicacion(
     id: 'pub-presentacion-1',
-    titulo: 'Presentacion en Fundacion Concordia',
+    titulo: 'Presentacion en Fundacion Magma',
     descripcion:
         'Primera presentacion publica del proyecto Recorridos Patrimoniales '
         'en la Fundacion Concordia. Compartimos la genesis de la aplicacion, '
@@ -64,13 +64,14 @@ final List<Publicacion> publicacionesSeed = [
         'que enriquecieron el enfoque del proyecto. Tambien presentamos '
         'material grafico inedito: planos originales, fotografias historicas '
         'y comparativas del estado actual de las obras.',
-    nombreEvento: 'Fundacion Concordia',
+    nombreEvento: 'Fundacion Magma',
     fechaEvento: DateTime(2025, 12),
+    urlsImagenes: ['assets/imagenes/publicaciones/fundacion-magma.jpg'],
     orden: 0,
   ),
   Publicacion(
     id: 'pub-presentacion-2',
-    titulo: 'Charla en el Profesorado de Artes Visuales',
+    titulo: 'Actividad interinstitucional en el Profesorado de Artes Visuales',
     descripcion:
         'Segunda presentacion del proyecto, esta vez en el Profesorado '
         'de Artes Visuales. Abordamos la relacion entre arte, arquitectura '
@@ -85,6 +86,7 @@ final List<Publicacion> publicacionesSeed = [
         'arquitectonico local.',
     nombreEvento: 'Profesorado de Artes Visuales',
     fechaEvento: DateTime(2026, 3),
+    urlsImagenes: ['assets/imagenes/publicaciones/charla-artes-visuales.png'],
     orden: 1,
   ),
   Publicacion(
@@ -106,6 +108,7 @@ final List<Publicacion> publicacionesSeed = [
         'instituciones educativas de la region.',
     nombreEvento: 'Feria de las Carreras - IPC',
     fechaEvento: DateTime(2026, 6),
+    urlsImagenes: ['assets/imagenes/publicaciones/feria-carreras-ipc.jpeg'],
     orden: 2,
   ),
 ];

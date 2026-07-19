@@ -49,7 +49,9 @@ class _PantallaPublicacionesState extends State<PantallaPublicaciones> {
       body: SafeArea(
         top: true,
         bottom: true,
-        child: CustomScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 12),
+          child: CustomScrollView(
         clipBehavior: Clip.hardEdge,
         slivers: [
           // -- HEADER EDITORIAL --
@@ -65,6 +67,7 @@ class _PantallaPublicacionesState extends State<PantallaPublicaciones> {
                 'Compartimos nuestro trabajo en ferias, universidades, '
                 'fundaciones e instituciones. Cada publicacion documenta '
                 'una presentacion, sus fotos y el intercambio generado.',
+                textAlign: TextAlign.justify,
                 style: GoogleFonts.inter(
                   fontSize: 14,
                   height: 1.5,
@@ -107,6 +110,7 @@ class _PantallaPublicacionesState extends State<PantallaPublicaciones> {
         ],
       ),
       ),
+      ),
       floatingActionButton: _esAdmin
           ? FloatingActionButton.extended(
               onPressed: () {
@@ -147,7 +151,7 @@ class _HeaderPublicaciones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final coverHeight = (usableHeight * 0.38).clamp(240.0, 380.0).toDouble();
+    final coverHeight = (usableHeight * 0.28).clamp(180.0, 280.0).toDouble();
 
     return SizedBox(
       height: coverHeight,
@@ -300,14 +304,15 @@ class _TarjetaPublicacion extends StatelessWidget {
     final fechaTexto = _formatearFecha(publicacion.fechaEvento);
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(24, 0, 24, esUltima ? 8 : 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Linea de tiempo vertical + fecha
-          Row(
-            children: [
-              Column(
+      padding: EdgeInsets.fromLTRB(16, 0, 24, esUltima ? 8 : 0),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Timeline: dot + linea vertical (altura completa)
+            SizedBox(
+              width: 22,
+              child: Column(
                 children: [
                   Container(
                     width: 12,
@@ -325,180 +330,165 @@ class _TarjetaPublicacion extends StatelessWidget {
                     ),
                   ),
                   if (!esUltima)
-                    Container(
-                      width: 2,
-                      height: 60,
-                      color: Colors.grey[300],
+                    Expanded(
+                      child: Container(
+                        width: 2,
+                        color: Colors.grey[300],
+                      ),
                     ),
                 ],
               ),
-              const SizedBox(width: 14),
-              if (fechaTexto.isNotEmpty)
-                Text(
-                  fechaTexto.toUpperCase(),
-                  style: GoogleFonts.inter(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.5,
-                    color: Colors.grey[500],
-                  ),
-                ),
-            ],
-          ),
-          // Tarjeta principal
-          Padding(
-            padding: const EdgeInsets.only(left: 26, bottom: 24),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => PantallaDetallePublicacion(
-                      publicacion: publicacion,
+            ),
+            // Fecha + tarjeta
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (fechaTexto.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Text(
+                        fechaTexto.toUpperCase(),
+                        style: GoogleFonts.inter(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 1.5,
+                          color: Colors.grey[500],
+                        ),
+                      ),
                     ),
-                  ),
-                );
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.06),
-                      blurRadius: 16,
-                      offset: const Offset(0, 6),
-                    ),
-                  ],
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Imagen de portada
-                    if (publicacion.urlsImagenes.isNotEmpty)
-                      AspectRatio(
-                        aspectRatio: 16 / 9,
-                        child: ImagenUniversal(
-                          url: publicacion.urlsImagenes.first,
-                          fit: BoxFit.cover,
-                          anchoCache: 600,
-                          reemplazoVisual: _CoverPlaceholder(
-                            initial: publicacion.titulo[0],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => PantallaDetallePublicacion(
+                            publicacion: publicacion,
                           ),
                         ),
-                      )
-                    else
-                      _CoverPlaceholder(
-                        initial: publicacion.titulo[0],
-                        height: 180,
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.06),
+                            blurRadius: 16,
+                            offset: const Offset(0, 6),
+                          ),
+                        ],
                       ),
-
-                    // Contenido de la tarjeta
-                    Padding(
-                      padding: const EdgeInsets.all(20),
+                      clipBehavior: Clip.antiAlias,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Nombre del evento
-                          if (publicacion.nombreEvento.isNotEmpty)
-                            Container(
-                              margin: const EdgeInsets.only(bottom: 10),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF1A1A1A).withValues(
-                                  alpha: 0.05,
-                                ),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Text(
-                                publicacion.nombreEvento,
-                                style: GoogleFonts.inter(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w600,
-                                  color: const Color(0xFF555555),
+                          if (publicacion.urlsImagenes.isNotEmpty)
+                            AspectRatio(
+                              aspectRatio: 16 / 9,
+                              child: ImagenUniversal(
+                                url: publicacion.urlsImagenes.first,
+                                fit: BoxFit.cover,
+                                anchoCache: 600,
+                                reemplazoVisual: _CoverPlaceholder(
+                                  initial: publicacion.titulo[0],
                                 ),
                               ),
+                            )
+                          else
+                            _CoverPlaceholder(
+                              initial: publicacion.titulo[0],
+                              height: 180,
                             ),
-
-                          // Titulo
-                          Text(
-                            publicacion.titulo,
-                            style: GoogleFonts.inter(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w800,
-                              color: const Color(0xFF1A1A1A),
-                              height: 1.2,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 10),
-
-                          // Descripcion preview
-                          Text(
-                            publicacion.descripcion.replaceAll('\n', ' '),
-                            style: GoogleFonts.inter(
-                              fontSize: 13,
-                              height: 1.5,
-                              color: Colors.grey[600],
-                            ),
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 14),
-
-                          // Footer: cantidad de fotos + ver mas
-                          Row(
-                            children: [
-                              if (publicacion.urlsImagenes.length > 1)
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.photo_library_outlined,
-                                      size: 14,
-                                      color: Color(0xFF888888),
+                          Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (publicacion.nombreEvento.isNotEmpty)
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 10),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 4,
                                     ),
-                                    const SizedBox(width: 4),
-                                    Text(
-                                      '${publicacion.urlsImagenes.length} fotos',
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFF1A1A1A).withValues(alpha: 0.05),
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    child: Text(
+                                      publicacion.nombreEvento,
                                       style: GoogleFonts.inter(
                                         fontSize: 11,
-                                        color: Colors.grey[500],
+                                        fontWeight: FontWeight.w600,
+                                        color: const Color(0xFF555555),
                                       ),
                                     ),
-                                    const SizedBox(width: 16),
+                                  ),
+                                Text(
+                                  publicacion.titulo,
+                                  style: GoogleFonts.inter(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w800,
+                                    color: const Color(0xFF1A1A1A),
+                                    height: 1.2,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  publicacion.descripcion.replaceAll('\n', ' '),
+                                  style: GoogleFonts.inter(
+                                    fontSize: 13,
+                                    height: 1.5,
+                                    color: Colors.grey[600],
+                                  ),
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(height: 14),
+                                Row(
+                                  children: [
+                                    if (publicacion.urlsImagenes.length > 1)
+                                      Row(
+                                        children: [
+                                          const Icon(Icons.photo_library_outlined, size: 14, color: Color(0xFF888888)),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            '${publicacion.urlsImagenes.length} fotos',
+                                            style: GoogleFonts.inter(fontSize: 11, color: Colors.grey[500]),
+                                          ),
+                                          const SizedBox(width: 16),
+                                        ],
+                                      ),
+                                    const Spacer(),
+                                    Text(
+                                      'Leer mas',
+                                      style: GoogleFonts.inter(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                        color: const Color(0xFFD32F2F),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    const Icon(Icons.arrow_forward, size: 14, color: Color(0xFFD32F2F)),
                                   ],
                                 ),
-                              const Spacer(),
-                              Text(
-                                'Leer mas',
-                                style: GoogleFonts.inter(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xFFD32F2F),
-                                ),
-                              ),
-                              const SizedBox(width: 4),
-                              const Icon(
-                                Icons.arrow_forward,
-                                size: 14,
-                                color: Color(0xFFD32F2F),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 24),
+                ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

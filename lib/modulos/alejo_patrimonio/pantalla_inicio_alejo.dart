@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:recorridos_patrimoniales/datos/datos_puntos.dart';
-import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_mapa_alejo.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_detalle_punto_alejo.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/repositorio_patrimonio.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/componentes/imagen_universal.dart';
@@ -30,13 +29,6 @@ class _PantallaInicioAlejoState extends State<PantallaInicioAlejo> {
       orElse: () =>
           puntosConImagenes.isNotEmpty ? puntosConImagenes.first : puntos.first,
     );
-
-    final mediaQuery = MediaQuery.of(context);
-    final usableHeight =
-        mediaQuery.size.height -
-        mediaQuery.padding.top -
-        mediaQuery.padding.bottom;
-    final coverHeight = (usableHeight - 36.0).clamp(580.0, 860.0).toDouble();
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F3),
@@ -66,93 +58,31 @@ class _PantallaInicioAlejoState extends State<PantallaInicioAlejo> {
               clipBehavior: Clip.hardEdge,
               slivers: [
                 SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: coverHeight,
-                    child: _AlejoEditorialCover(
-                      cantidadPuntos: puntos.length,
-                      onTapRoute: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const PantallaMapaAlejo(),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(24, 12, 24, 10),
                     child: LayoutBuilder(
                       builder: (context, constraints) {
                         final isNarrow = constraints.maxWidth < 360;
-                        return Row(
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Visitas autoguiadas',
-                                    style: GoogleFonts.inter(
-                                      fontSize: 14,
-                                      color: Colors.grey[600],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      'Obras Arquitectonicas',
-                                      style: GoogleFonts.inter(
-                                        fontSize: isNarrow ? 20 : 24,
-                                        fontWeight: FontWeight.bold,
-                                        color: const Color(0xFF1A1A1A),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                            Text(
+                              'Visitas autoguiadas',
+                              style: GoogleFonts.inter(
+                                fontSize: 14,
+                                color: Colors.grey[600],
                               ),
                             ),
-                            const SizedBox(width: 8),
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const PantallaMapaAlejo(),
-                                  ),
-                                );
-                              },
-                              borderRadius: BorderRadius.circular(999),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 14,
-                                  vertical: 10,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFD32F2F),
-                                  borderRadius: BorderRadius.circular(999),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color(
-                                        0xFFD32F2F,
-                                      ).withValues(alpha: 0.18),
-                                      blurRadius: 12,
-                                      offset: const Offset(0, 6),
-                                    ),
-                                  ],
-                                ),
-                                child: Text(
-                                  'Ver todo',
-                                  style: GoogleFonts.inter(
-                                    fontSize: 13,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                            const SizedBox(height: 4),
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Obras Arquitectonicas',
+                                style: GoogleFonts.inter(
+                                  fontSize: isNarrow ? 20 : 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xFF1A1A1A),
                                 ),
                               ),
                             ),
@@ -212,81 +142,95 @@ class _PantallaInicioAlejoState extends State<PantallaInicioAlejo> {
                     ),
                   ),
                 ),
-                SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 28),
-                  sliver: SliverGrid(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 14,
-                          crossAxisSpacing: 12,
-                          childAspectRatio: 0.9,
-                        ),
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      final punto = puntosConImagenes[index];
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  PantallaDetallePuntoAlejo(punto: punto),
-                            ),
-                          );
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: ColorFiltered(
-                                  colorFilter: const ColorFilter.matrix([
-                                    0.2126,
-                                    0.7152,
-                                    0.0722,
-                                    0,
-                                    0,
-                                    0.2126,
-                                    0.7152,
-                                    0.0722,
-                                    0,
-                                    0,
-                                    0.2126,
-                                    0.7152,
-                                    0.0722,
-                                    0,
-                                    0,
-                                    0,
-                                    0,
-                                    0,
-                                    1,
-                                    0,
-                                  ]),
-                                  child: ImagenUniversal(
-                                    url: punto.urlsImagenes.first,
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    anchoCache: 300,
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 28),
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        const spacing = 12.0;
+                        final cardWidth = (constraints.maxWidth - spacing) / 2;
+                        return Wrap(
+                          spacing: spacing,
+                          runSpacing: 14,
+                          children: puntosConImagenes
+                              .map((punto) {
+                                return SizedBox(
+                                  width: cardWidth,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              PantallaDetallePuntoAlejo(
+                                                punto: punto,
+                                              ),
+                                        ),
+                                      );
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        AspectRatio(
+                                          aspectRatio: 1,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
+                                            child: ColorFiltered(
+                                              colorFilter:
+                                                  const ColorFilter.matrix([
+                                                    0.2126,
+                                                    0.7152,
+                                                    0.0722,
+                                                    0,
+                                                    0,
+                                                    0.2126,
+                                                    0.7152,
+                                                    0.0722,
+                                                    0,
+                                                    0,
+                                                    0.2126,
+                                                    0.7152,
+                                                    0.0722,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    1,
+                                                    0,
+                                                  ]),
+                                              child: ImagenUniversal(
+                                                url: punto.urlsImagenes.first,
+                                                fit: BoxFit.cover,
+                                                width: double.infinity,
+                                                anchoCache: 300,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 12),
+                                        Text(
+                                          punto.nombre,
+                                          style: GoogleFonts.inter(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color(0xFF1A1A1A),
+                                          ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            Text(
-                              punto.nombre,
-                              style: GoogleFonts.inter(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: const Color(0xFF1A1A1A),
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                      );
-                    }, childCount: puntosConImagenes.length),
+                                );
+                              })
+                              .toList(growable: false),
+                        );
+                      },
+                    ),
                   ),
                 ),
                 const SliverToBoxAdapter(child: SizedBox(height: 96)),
@@ -392,6 +336,7 @@ class _PantallaInicioAlejoState extends State<PantallaInicioAlejo> {
                 Positioned(
                   top: 16,
                   left: 16,
+                  right: 16,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
@@ -403,6 +348,8 @@ class _PantallaInicioAlejoState extends State<PantallaInicioAlejo> {
                     ),
                     child: Text(
                       'Primera obra moderna de Argentina',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
@@ -435,6 +382,8 @@ class _PantallaInicioAlejoState extends State<PantallaInicioAlejo> {
                       children: [
                         Text(
                           punto.nombre,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           style: GoogleFonts.inter(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -525,6 +474,8 @@ Widget _armarTarjetaRecorrido(
                 const SizedBox(height: 8),
                 Text(
                   title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.inter(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
@@ -533,6 +484,8 @@ Widget _armarTarjetaRecorrido(
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.inter(
                     fontSize: 14,
                     color: Colors.grey[600],
@@ -548,8 +501,9 @@ Widget _armarTarjetaRecorrido(
   );
 }
 
-class _AlejoEditorialCover extends StatelessWidget {
-  const _AlejoEditorialCover({
+class AlejoEditorialCover extends StatelessWidget {
+  const AlejoEditorialCover({
+    super.key,
     required this.cantidadPuntos,
     required this.onTapRoute,
   });

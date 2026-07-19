@@ -827,7 +827,7 @@ class _PantallaMapaAlejoState extends State<PantallaMapaAlejo> {
         );
       },
       child: Container(
-        height: 90,
+        constraints: const BoxConstraints(minHeight: 90),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),

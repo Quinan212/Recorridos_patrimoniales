@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_inicio_alejo.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/servicio_audio.dart';
@@ -12,6 +11,10 @@ import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_info_
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_mapa_alejo.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_publicaciones.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/servicio_notificaciones.dart';
+import 'package:recorridos_patrimoniales/modulos/pantalla_inicio.dart';
+import 'package:recorridos_patrimoniales/compartido/componentes/navegacion_inferior.dart';
+import 'package:recorridos_patrimoniales/compartido/componentes/barra_busqueda_morphing.dart';
+import 'package:recorridos_patrimoniales/compartido/busqueda_inteligente.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -63,26 +66,27 @@ class AplicacionAlejo extends StatelessWidget {
             brightness: Brightness.light,
             surface: fondoAplicacion,
           ),
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: fondoAplicacion,
-          ),
           appBarTheme: const AppBarTheme(
             backgroundColor: fondoAplicacion,
             surfaceTintColor: Colors.transparent,
           ),
         ),
         builder: (context, hija) {
-          return AnnotatedRegion<SystemUiOverlayStyle>(
-            value: const SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              statusBarIconBrightness: Brightness.dark,
-              statusBarBrightness: Brightness.light,
-              systemNavigationBarColor: Color(0xFFF5F5F3),
-              systemNavigationBarIconBrightness: Brightness.dark,
-              systemStatusBarContrastEnforced: false,
-              systemNavigationBarContrastEnforced: false,
+          return MediaQuery.withClampedTextScaling(
+            minScaleFactor: 0.95,
+            maxScaleFactor: 1.10,
+            child: AnnotatedRegion<SystemUiOverlayStyle>(
+              value: const SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                statusBarIconBrightness: Brightness.dark,
+                statusBarBrightness: Brightness.light,
+                systemNavigationBarColor: Color(0xFFF5F5F3),
+                systemNavigationBarIconBrightness: Brightness.dark,
+                systemStatusBarContrastEnforced: false,
+                systemNavigationBarContrastEnforced: false,
+              ),
+              child: CapaAudioGlobal(contenido: hija ?? const SizedBox()),
             ),
-            child: CapaAudioGlobal(contenido: hija ?? const SizedBox()),
           );
         },
         home: const NavegacionPrincipal(),
@@ -101,7 +105,7 @@ class CapaAudioGlobal extends StatelessWidget {
     return ValueListenableBuilder<int>(
       valueListenable: notificadorIndiceNavegacion,
       builder: (context, indiceSeleccionado, _) {
-        final desplazamientoInferior = indiceSeleccionado == 1 ? 95.0 : 60.0;
+        final desplazamientoInferior = indiceSeleccionado == 2 ? 95.0 : 60.0;
         return Selector<ControladorAudio, bool>(
           selector: (_, audio) => audio.tieneAudio,
           builder: (context, tieneAudio, _) {
@@ -113,7 +117,9 @@ class CapaAudioGlobal extends StatelessWidget {
                     left: 16,
                     right: 16,
                     bottom: desplazamientoInferior,
-                    child: _ComponenteReproductorFlotanteGlobal(),
+                    child: MediaQuery.withNoTextScaling(
+                      child: _ComponenteReproductorFlotanteGlobal(),
+                    ),
                   ),
               ],
             );
@@ -268,6 +274,7 @@ class NavegacionPrincipal extends StatefulWidget {
 
 class _NavegacionPrincipalState extends State<NavegacionPrincipal> {
   int _indiceSeleccionado = 0;
+  double _progressBusqueda = 0.0;
 
   @override
   void initState() {
@@ -276,7 +283,8 @@ class _NavegacionPrincipalState extends State<NavegacionPrincipal> {
   }
 
   List<Widget> get _pantallas => [
-    const PantallaInicioAlejo(),
+    const PantallaInicio(),
+    PantallaInicioAlejo(),
     PantallaMapaAlejo(
       onBack: () {
         setState(() {
@@ -288,94 +296,102 @@ class _NavegacionPrincipalState extends State<NavegacionPrincipal> {
     const PantallaPublicaciones(),
     const PantallaInfoAlejo(),
   ];
-  void _alTocarElemento(int indice) {
+
+  void _irA(int indice) {
     setState(() {
       _indiceSeleccionado = indice;
+      _progressBusqueda = 0.0;
     });
     notificadorIndiceNavegacion.value = indice;
+  }
+
+  bool _manejarScroll(ScrollNotification notification) {
+    if (notification.metrics.axis != Axis.vertical) return false;
+    final progress = (notification.metrics.pixels / 60).clamp(0.0, 1.0);
+    if ((progress - _progressBusqueda).abs() < 0.01) return false;
+    setState(() => _progressBusqueda = progress);
+    return false;
+  }
+
+  void _abrirBusqueda() {
+    showSearch(
+      context: context,
+      delegate: BusquedaInteligenteDelegate(onOpenSection: _irA),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     const fondoAplicacion = Color(0xFFF5F5F3);
 
-    return Scaffold(
-      backgroundColor: fondoAplicacion,
-      body: IndexedStack(index: _indiceSeleccionado, children: _pantallas),
-      bottomNavigationBar: DecoratedBox(
-        decoration: BoxDecoration(
-          color: fondoAplicacion,
-          border: Border(
-            top: BorderSide(
-              color: Colors.grey.withValues(alpha: 0.2),
-              width: 0.5,
-            ),
-          ),
-        ),
-        child: SafeArea(
-          top: false,
-          child: BottomNavigationBar(
-            currentIndex: _indiceSeleccionado,
-            onTap: _alTocarElemento,
-            backgroundColor: fondoAplicacion,
-            elevation: 0,
-            selectedItemColor: const Color(0xFF1A1A1A),
-            unselectedItemColor: Colors.grey[400],
-            selectedLabelStyle: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Inter',
-            ),
-            unselectedLabelStyle: const TextStyle(
-              fontSize: 12,
-              fontFamily: 'Inter',
-            ),
-            showUnselectedLabels: true,
-            type: BottomNavigationBarType.fixed,
-            items: [
-              const BottomNavigationBarItem(
-                icon: _MarcaAlejoNavegacion(color: Color(0xFFBDBDBD)),
-                activeIcon: _MarcaAlejoNavegacion(color: Color(0xFF1A1A1A)),
-                label: 'Descubrir',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.map_outlined),
-                activeIcon: Icon(Icons.map),
-                label: 'Mapa',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.article_outlined),
-                activeIcon: Icon(Icons.article),
-                label: 'Pub.',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.info_outline),
-                activeIcon: Icon(Icons.info),
-                label: 'Info',
-              ),
-            ],
-          ),
-        ),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
       ),
-    );
-  }
-}
-
-class _MarcaAlejoNavegacion extends StatelessWidget {
-  const _MarcaAlejoNavegacion({required this.color});
-
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      'A',
-      style: GoogleFonts.playfairDisplay(
-        fontSize: 28,
-        fontWeight: FontWeight.w900,
-        color: color,
-        fontStyle: FontStyle.italic,
-        height: 1,
+      child: Scaffold(
+        backgroundColor: fondoAplicacion,
+        body: Stack(
+          children: [
+            NotificationListener<ScrollNotification>(
+              onNotification: _manejarScroll,
+              child: IndexedStack(
+                index: _indiceSeleccionado,
+                children: _pantallas,
+              ),
+            ),
+            Positioned(
+              top: 0,
+              right: 0,
+              left: 0,
+              child: Container(
+                height: MediaQuery.of(context).padding.top,
+                color: const Color(0xFFD32F2F),
+              ),
+            ),
+            Positioned(
+              top: 0,
+              right: 0,
+              left: 0,
+              child: IgnorePointer(
+                child: Opacity(
+                  opacity: _progressBusqueda.clamp(0.0, 1.0),
+                  child: Container(
+                    height: MediaQuery.of(context).padding.top + 72,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFD32F2F),
+                      borderRadius: BorderRadius.vertical(
+                        bottom: Radius.circular(12),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: MediaQuery.of(context).padding.top + 8,
+              right: 16,
+              child: BarraBusquedaMorphing(
+                progress: _progressBusqueda,
+                onOpen: _abrirBusqueda,
+              ),
+            ),
+          ],
+        ),
+        bottomNavigationBar: MediaQuery.withNoTextScaling(
+          child: NavegacionInferiorApp(
+            current: _indiceSeleccionado == 2
+                ? 0
+                : _indiceSeleccionado >= 3
+                ? _indiceSeleccionado - 1
+                : _indiceSeleccionado,
+            onTapInicio: () => _irA(0),
+            onTapDescubrir: () => _irA(1),
+            onTapMapa: () => _irA(2),
+            onTapPub: () => _irA(3),
+            onTapInfo: () => _irA(4),
+          ),
+        ),
       ),
     );
   }
