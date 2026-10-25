@@ -4,13 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_inicio_alejo.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/servicio_audio.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/repositorio_patrimonio.dart';
-import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/repositorio_publicaciones.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/configuracion_supabase.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/componente_reproductor_audio.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_info_alejo.dart';
-import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_mapa_alejo.dart';
-import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_publicaciones.dart';
-import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/servicio_notificaciones.dart';
+import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/mapa_3d/pantalla_mapa_3d.dart';
 import 'package:recorridos_patrimoniales/modulos/pantalla_inicio.dart';
 import 'package:recorridos_patrimoniales/compartido/componentes/navegacion_inferior.dart';
 import 'package:recorridos_patrimoniales/compartido/componentes/barra_busqueda_morphing.dart';
@@ -29,7 +26,6 @@ void main() async {
     );
   }
   await ServicioAudio().inicializar();
-  ServicioNotificaciones().inicializar();
   await initializeDateFormatting('es');
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
@@ -48,9 +44,6 @@ class AplicacionAlejo extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ControladorAudio()),
         ChangeNotifierProvider(
           create: (_) => RepositorioPatrimonio()..cargar(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => RepositorioPublicaciones()..cargar(),
         ),
       ],
       child: MaterialApp(
@@ -90,6 +83,15 @@ class AplicacionAlejo extends StatelessWidget {
           );
         },
         home: const NavegacionPrincipal(),
+        onGenerateRoute: (settings) {
+          final uri = Uri.tryParse(settings.name ?? '');
+          if (uri?.path != '/mapa') return null;
+          return MaterialPageRoute<void>(
+            settings: settings,
+            builder: (_) =>
+                PantallaMapa3D(idPuntoInicial: uri!.queryParameters['casa']),
+          );
+        },
       ),
     );
   }
@@ -105,7 +107,8 @@ class CapaAudioGlobal extends StatelessWidget {
     return ValueListenableBuilder<int>(
       valueListenable: notificadorIndiceNavegacion,
       builder: (context, indiceSeleccionado, _) {
-        final desplazamientoInferior = indiceSeleccionado == 2 ? 95.0 : 60.0;
+        final desplazamientoInferior =
+            64.0 + MediaQuery.paddingOf(context).bottom;
         return Selector<ControladorAudio, bool>(
           selector: (_, audio) => audio.tieneAudio,
           builder: (context, tieneAudio, _) {
@@ -275,6 +278,7 @@ class NavegacionPrincipal extends StatefulWidget {
 class _NavegacionPrincipalState extends State<NavegacionPrincipal> {
   int _indiceSeleccionado = 0;
   double _progressBusqueda = 0.0;
+  bool _mapaVisitado = false;
 
   @override
   void initState() {
@@ -285,21 +289,18 @@ class _NavegacionPrincipalState extends State<NavegacionPrincipal> {
   List<Widget> get _pantallas => [
     const PantallaInicio(),
     PantallaInicioAlejo(),
-    PantallaMapaAlejo(
-      onBack: () {
-        setState(() {
-          _indiceSeleccionado = 0;
-        });
-        notificadorIndiceNavegacion.value = 0;
-      },
-    ),
-    const PantallaPublicaciones(),
+    // El visor nativo se crea al entrar a Mapa y conserva la cámara entre pestañas.
+    if (_mapaVisitado)
+      PantallaMapa3D(onBack: () => _irA(0), activo: _indiceSeleccionado == 2)
+    else
+      const SizedBox.shrink(),
     const PantallaInfoAlejo(),
   ];
 
   void _irA(int indice) {
     setState(() {
       _indiceSeleccionado = indice;
+      if (indice == 2) _mapaVisitado = true;
       _progressBusqueda = 0.0;
     });
     notificadorIndiceNavegacion.value = indice;
@@ -368,28 +369,24 @@ class _NavegacionPrincipalState extends State<NavegacionPrincipal> {
                 ),
               ),
             ),
-            Positioned(
-              top: MediaQuery.of(context).padding.top + 8,
-              right: 16,
-              child: BarraBusquedaMorphing(
-                progress: _progressBusqueda,
-                onOpen: _abrirBusqueda,
+            if (_indiceSeleccionado != 2)
+              Positioned(
+                top: MediaQuery.of(context).padding.top + 8,
+                right: 16,
+                child: BarraBusquedaMorphing(
+                  progress: _progressBusqueda,
+                  onOpen: _abrirBusqueda,
+                ),
               ),
-            ),
           ],
         ),
         bottomNavigationBar: MediaQuery.withNoTextScaling(
           child: NavegacionInferiorApp(
-            current: _indiceSeleccionado == 2
-                ? 0
-                : _indiceSeleccionado >= 3
-                ? _indiceSeleccionado - 1
-                : _indiceSeleccionado,
+            current: _indiceSeleccionado,
             onTapInicio: () => _irA(0),
             onTapDescubrir: () => _irA(1),
             onTapMapa: () => _irA(2),
-            onTapPub: () => _irA(3),
-            onTapInfo: () => _irA(4),
+            onTapInfo: () => _irA(3),
           ),
         ),
       ),

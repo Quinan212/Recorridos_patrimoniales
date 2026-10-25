@@ -6,12 +6,15 @@ import 'package:provider/provider.dart';
 /// Proveedor global de audio para toda la app
 class ControladorAudio extends ChangeNotifier {
   static final ControladorAudio _instance = ControladorAudio._internal();
-  factory ControladorAudio() => _instance;
-  ControladorAudio._internal() {
+  factory ControladorAudio({AudioPlayer? reproductor}) => reproductor == null
+      ? _instance
+      : ControladorAudio._internal(reproductor: reproductor);
+  ControladorAudio._internal({AudioPlayer? reproductor})
+    : _player = reproductor ?? AudioPlayer() {
     _inicializar();
   }
 
-  final AudioPlayer _player = AudioPlayer();
+  final AudioPlayer _player;
   String? _tituloActual;
   String? _urlActual;
   bool _estaReproduciendo = false;
@@ -52,7 +55,7 @@ class ControladorAudio extends ChangeNotifier {
     });
   }
 
-  Future<void> reproducir(String titulo, String url) async {
+  Future<bool> reproducir(String titulo, String url) async {
     if (_urlActual != url) {
       _tituloActual = titulo;
       _urlActual = url;
@@ -61,8 +64,18 @@ class ControladorAudio extends ChangeNotifier {
     try {
       await _player.setUrl(url);
       await _player.play();
+      return true;
     } catch (e) {
       debugPrint('Error al reproducir audio: $e');
+      if (_urlActual == url) {
+        _tituloActual = null;
+        _urlActual = null;
+        _estaReproduciendo = false;
+        _posicion = Duration.zero;
+        _duracion = Duration.zero;
+        notifyListeners();
+      }
+      return false;
     }
   }
 
@@ -95,9 +108,20 @@ class ControladorAudio extends ChangeNotifier {
 }
 
 /// Helper para usar el audio desde cualquier parte de la app
-void reproducirAudioGlobal(BuildContext context, String titulo, String url) {
+Future<void> reproducirAudioGlobal(
+  BuildContext context,
+  String titulo,
+  String url,
+) async {
   final audio = Provider.of<ControladorAudio>(context, listen: false);
-  audio.reproducir(titulo, url);
+  final pudoReproducir = await audio.reproducir(titulo, url);
+  if (!pudoReproducir && context.mounted) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('No se pudo reproducir el audio. Intentá nuevamente.'),
+      ),
+    );
+  }
 }
 
 /// Componente que envuelve cualquier pantalla y muestra el reproductor flotante

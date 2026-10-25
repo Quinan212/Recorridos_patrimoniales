@@ -4,6 +4,11 @@ import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/conf
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RepositorioPatrimonio extends ChangeNotifier {
+  RepositorioPatrimonio({
+    Future<List<Map<String, dynamic>>> Function()? cargarFilas,
+  }) : _cargarFilas = cargarFilas;
+
+  final Future<List<Map<String, dynamic>>> Function()? _cargarFilas;
   List<PuntoPatrimonial> _puntos = puntosAlejo;
   bool _estaCargando = false;
 
@@ -11,7 +16,7 @@ class RepositorioPatrimonio extends ChangeNotifier {
   bool get estaCargando => _estaCargando;
 
   Future<void> cargar() async {
-    if (!ConfiguracionSupabase.estaConfigurado) {
+    if (_cargarFilas == null && !ConfiguracionSupabase.estaConfigurado) {
       debugPrint(
         'Supabase no esta configurado. Ejecuta con SUPABASE_URL y '
         'SUPABASE_ANON_KEY en dart-defines para cargar puntos e imagenes remotas.',
@@ -23,12 +28,14 @@ class RepositorioPatrimonio extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final filas = await Supabase.instance.client
-          .from('points')
-          .select(
-            'id,name,address,description,lat,lng,audio_url,sort_order,image_urls,point_images(storage_path,public_url,sort_order)',
-          )
-          .order('sort_order');
+      final filas = _cargarFilas != null
+          ? await _cargarFilas()
+          : await Supabase.instance.client
+                .from('points')
+                .select(
+                  'id,name,address,description,lat,lng,audio_url,sort_order,image_urls,point_images(storage_path,public_url,sort_order)',
+                )
+                .order('sort_order');
 
       final puntosRemotos = filas
           .map<PuntoPatrimonial>(_puntoDesdeFilaSupabase)

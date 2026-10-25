@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_inicio_alejo.dart'
     show AlejoEditorialCover;
-import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_mapa_alejo.dart';
+import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/mapa_3d/pantalla_mapa_3d.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/repositorio_patrimonio.dart';
 
 class PantallaInicio extends StatelessWidget {
@@ -50,7 +50,7 @@ class PantallaInicio extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const PantallaMapaAlejo(),
+                      builder: (context) => const PantallaMapa3D(),
                     ),
                   );
                 },

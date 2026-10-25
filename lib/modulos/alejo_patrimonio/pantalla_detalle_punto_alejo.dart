@@ -6,19 +6,26 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:recorridos_patrimoniales/datos/datos_puntos.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/componente_reproductor_audio.dart';
-import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_mapa_alejo.dart';
+import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/mapa_3d/pantalla_mapa_3d.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/servicio_dispositivo_admin.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/repositorio_patrimonio.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/servicio_admin_fotos_punto.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/componentes/imagen_universal.dart';
+import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/componentes/mapa_base.dart';
+import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/componentes/fuentes_punto.dart';
 
 // -----------------------------------------------------------------------------
 //  PANTALLA DE DETALLE DEL PUNTO PATRIMONIAL
 // -----------------------------------------------------------------------------
 class PantallaDetallePuntoAlejo extends StatefulWidget {
   final PuntoPatrimonial punto;
+  final VoidCallback? onVerMapa;
 
-  const PantallaDetallePuntoAlejo({super.key, required this.punto});
+  const PantallaDetallePuntoAlejo({
+    super.key,
+    required this.punto,
+    this.onVerMapa,
+  });
 
   @override
   State<PantallaDetallePuntoAlejo> createState() =>
@@ -174,6 +181,9 @@ class _PantallaDetallePuntoAlejoState extends State<PantallaDetallePuntoAlejo> {
                     ),
                     const SizedBox(height: 28),
                   ],
+
+                  FuentesPunto(punto: widget.punto),
+                  const SizedBox(height: 28),
 
                   // Mapa miniatura
                   Text(
@@ -553,12 +563,14 @@ class _PantallaDetallePuntoAlejoState extends State<PantallaDetallePuntoAlejo> {
 
   Widget _armarMiniMapa(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => PantallaMapaAlejo(idPuntoInicial: widget.punto.id),
-        ),
-      ),
+      onTap:
+          widget.onVerMapa ??
+          () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => PantallaMapa3D(idPuntoInicial: widget.punto.id),
+            ),
+          ),
       child: Container(
         height: 180,
         decoration: BoxDecoration(
@@ -584,12 +596,7 @@ class _PantallaDetallePuntoAlejoState extends State<PantallaDetallePuntoAlejo> {
                 ),
               ),
               children: [
-                TileLayer(
-                  urlTemplate:
-                      'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-                  subdomains: const ['a', 'b', 'c', 'd'],
-                  userAgentPackageName: 'ar.maillet.recorridos_patrimoniales',
-                ),
+                const CapaMapaBase(),
                 MarkerLayer(
                   markers: [
                     Marker(
@@ -617,6 +624,7 @@ class _PantallaDetallePuntoAlejoState extends State<PantallaDetallePuntoAlejo> {
                 ),
               ],
             ),
+            const Positioned(top: 4, left: 4, child: AtribucionMapaBase()),
             // Overlay con hint
             Positioned(
               bottom: 10,

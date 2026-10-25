@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:recorridos_patrimoniales/datos/datos_puntos.dart';
-import 'package:recorridos_patrimoniales/datos/datos_publicaciones.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_detalle_punto_alejo.dart';
-import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_detalle_publicacion.dart';
-import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/pantalla_mapa_alejo.dart';
+import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/mapa_3d/pantalla_mapa_3d.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/componente_reproductor_audio.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/repositorio_patrimonio.dart';
-import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/repositorio_publicaciones.dart';
 
 typedef AbrirSeccionBusqueda = void Function(int indice);
 
@@ -139,25 +135,14 @@ class BusquedaInteligenteDelegate extends SearchDelegate<void> {
       destacada: true,
     ),
     _AccionRapida(
-      id: 'publicaciones',
-      titulo: 'Publicaciones y eventos',
-      subtitulo: 'Ver presentaciones, ferias y actividades del proyecto.',
-      icono: Icons.article_rounded,
-      palabras:
-          'publicacion publicaciones eventos evento feria presentacion presentaciones charla proyecto noticias actividades',
-      tipo: _TipoAccion.seccion,
-      indiceSeccion: 3,
-      destacada: true,
-    ),
-    _AccionRapida(
-      id: 'informacion',
+      id: 'información',
       titulo: 'Información y fuentes',
       subtitulo: 'Conocer el proyecto, su contexto y bibliografía.',
       icono: Icons.menu_book_rounded,
       palabras:
-          'informacion info fuentes fuente bibliografia bibliografía contexto creditos créditos proyecto alejo historia patrimonio',
+          'información info fuentes fuente bibliografia bibliografía contexto créditos créditos proyecto alejo historia patrimonio',
       tipo: _TipoAccion.seccion,
-      indiceSeccion: 4,
+      indiceSeccion: 3,
       destacada: true,
     ),
     _AccionRapida(
@@ -165,14 +150,14 @@ class BusquedaInteligenteDelegate extends SearchDelegate<void> {
       titulo: 'Volver al inicio',
       subtitulo: 'Regresar a la presentación del recorrido.',
       icono: Icons.home_rounded,
-      palabras: 'inicio home portada presentacion recorrido',
+      palabras: 'inicio home portada presentación recorrido',
       tipo: _TipoAccion.seccion,
       indiceSeccion: 0,
     ),
   ];
 
   @override
-  String get searchFieldLabel => 'Buscar obras, publicaciones o acciones...';
+  String get searchFieldLabel => 'Buscar obras, direcciones o acciones...';
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -203,9 +188,6 @@ class BusquedaInteligenteDelegate extends SearchDelegate<void> {
 
   Widget _buildBody(BuildContext context) {
     final puntos = context.watch<RepositorioPatrimonio>().puntos;
-    final publicaciones = context
-        .watch<RepositorioPublicaciones>()
-        .publicaciones;
     final normalizada = normalizarTextoBusqueda(query);
 
     if (normalizada.isEmpty) {
@@ -214,14 +196,7 @@ class BusquedaInteligenteDelegate extends SearchDelegate<void> {
 
     final acciones = _rankearAcciones(normalizada);
     final puntosEncontrados = _rankearPuntos(normalizada, puntos);
-    final publicacionesEncontradas = _rankearPublicaciones(
-      normalizada,
-      publicaciones,
-    );
-    final total =
-        acciones.length +
-        puntosEncontrados.length +
-        publicacionesEncontradas.length;
+    final total = acciones.length + puntosEncontrados.length;
 
     if (total == 0) {
       return _buildNoResultsBody(context);
@@ -273,22 +248,6 @@ class BusquedaInteligenteDelegate extends SearchDelegate<void> {
                 ),
               ),
         ],
-        if (publicacionesEncontradas.isNotEmpty) ...[
-          const SizedBox(height: 14),
-          const _TituloResultados('Publicaciones y eventos'),
-          const SizedBox(height: 8),
-          ...publicacionesEncontradas
-              .take(8)
-              .map(
-                (resultado) => Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: _TarjetaPublicacionBusqueda(
-                    publicacion: resultado.item,
-                    onTap: () => _abrirPublicacion(context, resultado.item),
-                  ),
-                ),
-              ),
-        ],
       ],
     );
   }
@@ -296,14 +255,14 @@ class BusquedaInteligenteDelegate extends SearchDelegate<void> {
   Widget _buildEmptyBody(BuildContext context) {
     final destacadas = _acciones.where((accion) => accion.destacada).toList();
     const sugerencias = [
-      'Casa Pendola Diaz',
+      'Casa Péndola Díaz',
       'Obras racionalistas',
       'Puntos con audio',
       'Obras en Mitre',
       'Casas de esquina',
       'Obras de 1929',
       'Mapa del recorrido',
-      'Publicaciones del proyecto',
+      'Información y fuentes',
     ];
 
     return ListView(
@@ -399,7 +358,7 @@ class BusquedaInteligenteDelegate extends SearchDelegate<void> {
         ),
         const SizedBox(height: 8),
         Text(
-          'Probá con “mapa”, “casa”, “audio”, “racionalista”, “publicación” o una dirección.',
+          'Probá con “mapa”, “casa”, “audio”, “racionalista” o una dirección.',
           textAlign: TextAlign.center,
           style: TextStyle(color: Colors.grey[600]),
         ),
@@ -433,7 +392,7 @@ class BusquedaInteligenteDelegate extends SearchDelegate<void> {
     return _ordenar(
       puntos.map((punto) {
         final aliases = <String>[
-          'obra obras punto puntos patrimonio patrimonial arquitectura arquitectonico arquitectonica',
+          'obra obras punto puntos patrimonio patrimonial arquitectura arquitectónico arquitectonica',
           if (punto.nombre.toLowerCase().contains('casa'))
             'vivienda hogar domicilio residencia',
           if (punto.descripcion.toLowerCase().contains('racionalista'))
@@ -454,30 +413,6 @@ class BusquedaInteligenteDelegate extends SearchDelegate<void> {
             puntuarTextoBusqueda(consulta, texto) +
             puntuarTextoBusqueda(consulta, punto.nombre) * 2;
         return _ResultadoPuntuado(punto, score);
-      }),
-      consulta,
-    );
-  }
-
-  List<_ResultadoPuntuado<Publicacion>> _rankearPublicaciones(
-    String consulta,
-    List<Publicacion> publicaciones,
-  ) {
-    return _ordenar(
-      publicaciones.map((publicacion) {
-        final fecha = publicacion.fechaEvento?.year.toString() ?? '';
-        final texto = [
-          publicacion.id,
-          publicacion.titulo,
-          publicacion.descripcion,
-          publicacion.nombreEvento,
-          fecha,
-          'publicacion publicaciones evento eventos proyecto patrimonio arquitectura',
-        ].join(' ');
-        final score =
-            puntuarTextoBusqueda(consulta, texto) +
-            puntuarTextoBusqueda(consulta, publicacion.titulo) * 2;
-        return _ResultadoPuntuado(publicacion, score);
       }),
       consulta,
     );
@@ -530,7 +465,7 @@ class BusquedaInteligenteDelegate extends SearchDelegate<void> {
   void _abrirMapa(BuildContext context, [String? idPunto]) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) => PantallaMapaAlejo(idPuntoInicial: idPunto),
+        builder: (_) => PantallaMapa3D(idPuntoInicial: idPunto),
       ),
     );
   }
@@ -539,14 +474,6 @@ class BusquedaInteligenteDelegate extends SearchDelegate<void> {
     final url = punto.urlAudio;
     if (url == null || url.isEmpty) return;
     reproducirAudioGlobal(context, punto.nombre, url);
-  }
-
-  void _abrirPublicacion(BuildContext context, Publicacion publicacion) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (_) => PantallaDetallePublicacion(publicacion: publicacion),
-      ),
-    );
   }
 }
 
@@ -774,78 +701,6 @@ class _TarjetaPuntoBusqueda extends StatelessWidget {
                     label: const Text('Audio'),
                   ),
               ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _TarjetaPublicacionBusqueda extends StatelessWidget {
-  const _TarjetaPublicacionBusqueda({
-    required this.publicacion,
-    required this.onTap,
-  });
-
-  final Publicacion publicacion;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final fecha = publicacion.fechaEvento == null
-        ? null
-        : DateFormat('d MMM yyyy', 'es_AR').format(publicacion.fechaEvento!);
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Icon(Icons.article_rounded, color: Color(0xFFD32F2F)),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(
-                    publicacion.titulo,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            if (publicacion.nombreEvento.isNotEmpty || fecha != null) ...[
-              const SizedBox(height: 7),
-              Text(
-                [
-                  if (publicacion.nombreEvento.isNotEmpty)
-                    publicacion.nombreEvento,
-                  ?fecha,
-                ].join(' · '),
-                style: TextStyle(color: Colors.grey[600], fontSize: 12),
-              ),
-            ],
-            if (publicacion.descripcion.isNotEmpty) ...[
-              const SizedBox(height: 9),
-              Text(
-                publicacion.descripcion,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Colors.grey[700], height: 1.35),
-              ),
-            ],
-            const SizedBox(height: 11),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: OutlinedButton.icon(
-                onPressed: onTap,
-                icon: const Icon(Icons.open_in_new_rounded),
-                label: const Text('Abrir publicación'),
-              ),
             ),
           ],
         ),

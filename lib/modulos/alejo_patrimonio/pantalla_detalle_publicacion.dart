@@ -34,8 +34,8 @@ class _PantallaDetallePublicacionState
   void initState() {
     super.initState();
     _urlsImagenes = List<String>.of(widget.publicacion.urlsImagenes);
-    _estadoAdminFuture =
-        const ServicioDispositivoAdmin().verificarDispositivoActual();
+    _estadoAdminFuture = const ServicioDispositivoAdmin()
+        .verificarDispositivoActual();
   }
 
   @override
@@ -48,8 +48,7 @@ class _PantallaDetallePublicacionState
   Widget build(BuildContext context) {
     final cantidadImagenes = _urlsImagenes.length;
     final fechaTexto = _formatearFecha(widget.publicacion.fechaEvento);
-    final anchoCacheCarrusel =
-        (MediaQuery.sizeOf(context).width * 1.5).round();
+    final anchoCacheCarrusel = (MediaQuery.sizeOf(context).width * 1.5).round();
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F3),
@@ -57,18 +56,39 @@ class _PantallaDetallePublicacionState
         top: true,
         bottom: true,
         child: CustomScrollView(
-        slivers: [
-          // -- HEADER CON CARRUSEL -----------------------------------------
-          SliverAppBar(
-            expandedHeight: cantidadImagenes > 0 ? 310 : 120,
-            pinned: true,
-            backgroundColor: const Color(0xFF1A1A1A),
-            automaticallyImplyLeading: false,
-            actions: [
-              Padding(
+          slivers: [
+            // -- HEADER CON CARRUSEL -----------------------------------------
+            SliverAppBar(
+              expandedHeight: cantidadImagenes > 0 ? 310 : 120,
+              pinned: true,
+              backgroundColor: const Color(0xFF1A1A1A),
+              automaticallyImplyLeading: false,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: GestureDetector(
+                    onTap: _compartirPublicacion,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black.withValues(alpha: 0.45),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.25),
+                          width: 1,
+                        ),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(9),
+                        child: Icon(Icons.share, color: Colors.white, size: 18),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+              leading: Padding(
                 padding: const EdgeInsets.all(10),
                 child: GestureDetector(
-                  onTap: _compartirPublicacion,
+                  onTap: () => Navigator.pop(context),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.black.withValues(alpha: 0.45),
@@ -78,190 +98,167 @@ class _PantallaDetallePublicacionState
                         width: 1,
                       ),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(9),
-                      child: Icon(
-                        Icons.share,
-                        color: Colors.white,
-                        size: 18,
-                      ),
+                    child: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                      size: 20,
                     ),
                   ),
                 ),
               ),
-            ],
-            leading: Padding(
-              padding: const EdgeInsets.all(10),
-              child: GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.45),
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.25),
-                      width: 1,
-                    ),
-                  ),
-                  child: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                ),
-              ),
-            ),
-            flexibleSpace: FlexibleSpaceBar(
-              background: Stack(
-                fit: StackFit.expand,
-                children: [
-                  cantidadImagenes > 0
-                      ? _armarCarrusel(
-                          context,
-                          cantidadImagenes,
-                          anchoCacheCarrusel,
-                        )
-                      : Container(
-                          color: const Color(0xFF1A1A1A),
-                          child: Center(
-                            child: Text(
-                              widget.publicacion.titulo[0],
-                              style: GoogleFonts.playfairDisplay(
-                                fontSize: 82,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.white24,
-                                fontStyle: FontStyle.italic,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    cantidadImagenes > 0
+                        ? _armarCarrusel(
+                            context,
+                            cantidadImagenes,
+                            anchoCacheCarrusel,
+                          )
+                        : Container(
+                            color: const Color(0xFF1A1A1A),
+                            child: Center(
+                              child: Text(
+                                widget.publicacion.titulo[0],
+                                style: GoogleFonts.playfairDisplay(
+                                  fontSize: 82,
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.white24,
+                                  fontStyle: FontStyle.italic,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                  _armarAccionesAdmin(),
-                ],
+                    _armarAccionesAdmin(),
+                  ],
+                ),
               ),
             ),
-          ),
 
-          // -- CONTENIDO ----------------------------------------------------
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Evento + Fecha
-                  if (widget.publicacion.nombreEvento.isNotEmpty) ...[
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF1A1A1A).withValues(alpha: 0.06),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        widget.publicacion.nombreEvento,
-                        style: GoogleFonts.inter(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFF555555),
+            // -- CONTENIDO ----------------------------------------------------
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Evento + Fecha
+                    if (widget.publicacion.nombreEvento.isNotEmpty) ...[
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-                  ],
-
-                  // Titulo
-                  Text(
-                    widget.publicacion.titulo,
-                    style: GoogleFonts.playfairDisplay(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF1A1A1A),
-                      height: 1.15,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-
-                  // Fecha
-                  if (fechaTexto.isNotEmpty)
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.calendar_today,
-                          size: 14,
-                          color: Color(0xFFD32F2F),
+                        decoration: BoxDecoration(
+                          color: const Color(
+                            0xFF1A1A1A,
+                          ).withValues(alpha: 0.06),
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        const SizedBox(width: 6),
-                        Text(
-                          fechaTexto,
+                        child: Text(
+                          widget.publicacion.nombreEvento,
                           style: GoogleFonts.inter(
-                            fontSize: 13,
+                            fontSize: 12,
                             fontWeight: FontWeight.w600,
-                            color: Colors.grey[600],
+                            color: const Color(0xFF555555),
                           ),
                         ),
-                      ],
-                    ),
-                  const SizedBox(height: 22),
+                      ),
+                      const SizedBox(height: 14),
+                    ],
 
-                  // Linea divisora roja
-                  Container(
-                    height: 3,
-                    width: 48,
-                    color: const Color(0xFFD32F2F),
-                  ),
-                  const SizedBox(height: 22),
-
-                  // Descripcion completa
-                  if (widget.publicacion.descripcion.isNotEmpty) ...[
+                    // Titulo
                     Text(
-                      'DETALLES',
-                      style: GoogleFonts.inter(
-                        fontSize: 10,
+                      widget.publicacion.titulo,
+                      style: GoogleFonts.playfairDisplay(
+                        fontSize: 28,
                         fontWeight: FontWeight.bold,
-                        letterSpacing: 2.5,
-                        color: Colors.grey[400],
+                        color: const Color(0xFF1A1A1A),
+                        height: 1.15,
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Text(
-                      widget.publicacion.descripcion,
-                      textAlign: TextAlign.justify,
-                      style: GoogleFonts.inter(
-                        fontSize: 15,
-                        height: 1.7,
-                        color: const Color(0xFF444444),
-                      ),
-                    ),
-                    const SizedBox(height: 28),
-                  ],
 
-                  // Galeria completa si hay mas fotos
-                  if (_urlsImagenes.length > 1) ...[
-                    Text(
-                      'GALERIA',
-                      style: GoogleFonts.inter(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 2.5,
-                        color: Colors.grey[400],
+                    // Fecha
+                    if (fechaTexto.isNotEmpty)
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.calendar_today,
+                            size: 14,
+                            color: Color(0xFFD32F2F),
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            fechaTexto,
+                            style: GoogleFonts.inter(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 14),
-                    _armarGaleriaMiniaturas(),
-                    const SizedBox(height: 28),
-                  ],
+                    const SizedBox(height: 22),
 
-                  // Seccion de contacto
-                  _armarSeccionContacto(context),
-                  const SizedBox(height: 32),
-                ],
+                    // Linea divisora roja
+                    Container(
+                      height: 3,
+                      width: 48,
+                      color: const Color(0xFFD32F2F),
+                    ),
+                    const SizedBox(height: 22),
+
+                    // Descripcion completa
+                    if (widget.publicacion.descripcion.isNotEmpty) ...[
+                      Text(
+                        'DETALLES',
+                        style: GoogleFonts.inter(
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2.5,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        widget.publicacion.descripcion,
+                        textAlign: TextAlign.justify,
+                        style: GoogleFonts.inter(
+                          fontSize: 15,
+                          height: 1.7,
+                          color: const Color(0xFF444444),
+                        ),
+                      ),
+                      const SizedBox(height: 28),
+                    ],
+
+                    // Galeria completa si hay mas fotos
+                    if (_urlsImagenes.length > 1) ...[
+                      Text(
+                        'GALERIA',
+                        style: GoogleFonts.inter(
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2.5,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      _armarGaleriaMiniaturas(),
+                      const SizedBox(height: 28),
+                    ],
+
+                    // Seccion de contacto
+                    _armarSeccionContacto(context),
+                    const SizedBox(height: 32),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
       ),
     );
   }
@@ -436,9 +433,7 @@ class _PantallaDetallePublicacionState
                 url: _urlsImagenes[indice],
                 fit: BoxFit.cover,
                 anchoCache: 200,
-                reemplazoVisual: Container(
-                  color: const Color(0xFF222222),
-                ),
+                reemplazoVisual: Container(color: const Color(0xFF222222)),
               ),
             ),
           );
@@ -616,8 +611,9 @@ class _PantallaDetallePublicacionState
             if (url != urlImagen) url,
         ];
         if (_indiceImagenActual >= _urlsImagenes.length) {
-          _indiceImagenActual =
-              _urlsImagenes.isEmpty ? 0 : _urlsImagenes.length - 1;
+          _indiceImagenActual = _urlsImagenes.isEmpty
+              ? 0
+              : _urlsImagenes.length - 1;
         }
       });
       if (!mounted) return;
@@ -646,9 +642,9 @@ class _PantallaDetallePublicacionState
         transitionDuration: const Duration(milliseconds: 300),
         pageBuilder: (context, animation, secondaryAnimation) =>
             _VisorPublicacionFullscreen(
-          urlsImagenes: _urlsImagenes,
-          indiceInicial: indiceInicial,
-        ),
+              urlsImagenes: _urlsImagenes,
+              indiceInicial: indiceInicial,
+            ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(opacity: animation, child: child),
       ),
@@ -785,9 +781,9 @@ class _PantallaDetallePublicacionState
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('No se pudo abrir: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('No se pudo abrir: $e')));
     }
   }
 
@@ -806,13 +802,9 @@ class _PantallaDetallePublicacionState
     ].join('\n');
 
     if (widget.publicacion.urlsImagenes.isNotEmpty) {
-      await SharePlus.instance.share(
-        ShareParams(text: texto),
-      );
+      await SharePlus.instance.share(ShareParams(text: texto));
     } else {
-      await SharePlus.instance.share(
-        ShareParams(text: texto),
-      );
+      await SharePlus.instance.share(ShareParams(text: texto));
     }
   }
 
@@ -994,8 +986,8 @@ class _VisorPublicacionFullscreenState
                     child: ImagenUniversal(
                       url: widget.urlsImagenes[indice],
                       fit: BoxFit.contain,
-                      anchoCache:
-                          (MediaQuery.sizeOf(context).width * 2).round(),
+                      anchoCache: (MediaQuery.sizeOf(context).width * 2)
+                          .round(),
                       reemplazoVisual: const Icon(
                         Icons.broken_image,
                         color: Colors.white30,
@@ -1012,7 +1004,10 @@ class _VisorPublicacionFullscreenState
               child: Stack(
                 children: [
                   Positioned(
-                    top: 0, left: 0, right: 0, height: 100,
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: 100,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -1027,11 +1022,14 @@ class _VisorPublicacionFullscreenState
                     ),
                   ),
                   Positioned(
-                    top: 0, left: 0, right: 0,
+                    top: 0,
+                    left: 0,
+                    right: 0,
                     child: SafeArea(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 8,
+                          horizontal: 16,
+                          vertical: 8,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1039,7 +1037,8 @@ class _VisorPublicacionFullscreenState
                             if (widget.urlsImagenes.length > 1)
                               Container(
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 6,
+                                  horizontal: 12,
+                                  vertical: 6,
                                 ),
                                 decoration: BoxDecoration(
                                   color: Colors.black.withValues(alpha: 0.5),
@@ -1082,7 +1081,9 @@ class _VisorPublicacionFullscreenState
                   ),
                   if (widget.urlsImagenes.length > 1)
                     Positioned(
-                      bottom: 30, left: 0, right: 0,
+                      bottom: 30,
+                      left: 0,
+                      right: 0,
                       child: SafeArea(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

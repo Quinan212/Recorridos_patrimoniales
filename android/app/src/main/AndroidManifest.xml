@@ -10,6 +10,7 @@
     <application
         android:label="@string/app_name"
         android:name="${applicationName}"
+        android:networkSecurityConfig="@xml/mapa_network_security"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

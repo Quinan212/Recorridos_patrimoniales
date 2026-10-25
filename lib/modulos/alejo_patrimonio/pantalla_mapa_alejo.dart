@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'mapa_3d/pantalla_mapa_3d.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -13,6 +14,8 @@ import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/componente_rep
     show reproducirAudioGlobal, ControladorAudio;
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/repositorio_patrimonio.dart';
 import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/componentes/imagen_universal.dart';
+import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/componentes/mapa_base.dart';
+import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/componentes/distancia_punto.dart';
 
 class PantallaMapaAlejo extends StatefulWidget {
   final String? idPuntoInicial;
@@ -69,27 +72,6 @@ class _PantallaMapaAlejoState extends State<PantallaMapaAlejo> {
     super.dispose();
   }
 
-  double _calcularDistancia(PuntoPatrimonial punto) {
-    final ubicacionUsuario = _ubicacionUsuario;
-    if (ubicacionUsuario == null) {
-      const userLat = -31.392;
-      const userLng = -58.020;
-      const distanciaEnMetros = Distance();
-      return distanciaEnMetros.as(
-        LengthUnit.Meter,
-        LatLng(userLat, userLng),
-        LatLng(punto.lat, punto.lng),
-      );
-    }
-
-    const distanciaEnMetros = Distance();
-    return distanciaEnMetros.as(
-      LengthUnit.Meter,
-      ubicacionUsuario,
-      LatLng(punto.lat, punto.lng),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final tieneAudio = context.select(
@@ -121,21 +103,7 @@ class _PantallaMapaAlejoState extends State<PantallaMapaAlejo> {
               },
             ),
             children: [
-              TileLayer(
-                urlTemplate:
-                    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-                subdomains: const ['a', 'b', 'c', 'd'],
-                userAgentPackageName: 'ar.maillet.recorridos_patrimoniales',
-                tileProvider: NetworkTileProvider(
-                  cachingProvider:
-                      BuiltInMapCachingProvider.getOrCreateInstance(
-                        maxCacheSize: 250000000,
-                      ),
-                ),
-                keepBuffer: 1,
-                panBuffer: 0,
-                tileDisplay: const TileDisplay.instantaneous(),
-              ),
+              const CapaMapaBase(),
               ValueListenableBuilder<MapCamera?>(
                 valueListenable: _viewportNotifier,
                 builder: (context, viewport, _) {
@@ -190,6 +158,13 @@ class _PantallaMapaAlejoState extends State<PantallaMapaAlejo> {
             ],
           ),
 
+          Positioned(
+            top: topPadding + 20,
+            left: 72,
+            right: 80,
+            child: const Center(child: AtribucionMapaBase()),
+          ),
+
           // Flecha atras (10px debajo del Status Bar)
           Positioned(
             top: topPadding + 10,
@@ -208,6 +183,26 @@ class _PantallaMapaAlejoState extends State<PantallaMapaAlejo> {
                     Navigator.pop(context);
                   }
                 },
+              ),
+            ),
+          ),
+
+          Positioned(
+            top: topPadding + 10,
+            right: 20,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: IconButton(
+                tooltip: 'Abrir mapa 3D',
+                icon: const Icon(Icons.view_in_ar, color: Color(0xFFD32F2F)),
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => PantallaMapa3D(
+                      idPuntoInicial:
+                          _puntoSeleccionado?.id ?? widget.idPuntoInicial,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
@@ -243,25 +238,27 @@ class _PantallaMapaAlejoState extends State<PantallaMapaAlejo> {
                   children: [
                     const _AlejoMark(size: 22, color: Color(0xFFD32F2F)),
                     const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'ALEJO MARTINEZ',
-                          style: GoogleFonts.inter(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'ALEJO MARTÍNEZ',
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Recorrido de la Innovacion',
-                          style: GoogleFonts.inter(
-                            fontSize: 11,
-                            color: Colors.grey[600],
+                          Text(
+                            'Recorrido de la Innovación',
+                            style: GoogleFonts.inter(
+                              fontSize: 11,
+                              color: Colors.grey[600],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -502,9 +499,17 @@ class _PantallaMapaAlejoState extends State<PantallaMapaAlejo> {
 
   Future<void> _updateUserLocation() async {
     try {
+      final permiso = await Geolocator.checkPermission();
+      if (!await Geolocator.isLocationServiceEnabled() ||
+          permiso == LocationPermission.denied ||
+          permiso == LocationPermission.deniedForever) {
+        _limpiarUbicacion();
+        return;
+      }
       final posicion = await Geolocator.getCurrentPosition(
         locationSettings: const LocationSettings(
           accuracy: LocationAccuracy.high,
+          timeLimit: Duration(seconds: 15),
         ),
       );
 
@@ -513,7 +518,13 @@ class _PantallaMapaAlejoState extends State<PantallaMapaAlejo> {
         _ubicacionUsuario = LatLng(posicion.latitude, posicion.longitude);
       });
     } catch (_) {
-      // Ignore transient ubicacion failures.
+      _limpiarUbicacion();
+    }
+  }
+
+  void _limpiarUbicacion() {
+    if (mounted && _ubicacionUsuario != null) {
+      setState(() => _ubicacionUsuario = null);
     }
   }
 
@@ -815,8 +826,6 @@ class _PantallaMapaAlejoState extends State<PantallaMapaAlejo> {
   }
 
   Widget _armarTarjetaPunto(PuntoPatrimonial punto) {
-    final distanciaEnMetros = _calcularDistancia(punto);
-
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -884,22 +893,9 @@ class _PantallaMapaAlejoState extends State<PantallaMapaAlejo> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.navigation,
-                        size: 13,
-                        color: Color(0xFF888888),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        '${distanciaEnMetros.round()} m',
-                        style: GoogleFonts.inter(
-                          fontSize: 12,
-                          color: Colors.grey[500],
-                        ),
-                      ),
-                    ],
+                  DistanciaPunto(
+                    origen: _ubicacionUsuario,
+                    destino: LatLng(punto.lat, punto.lng),
                   ),
                 ],
               ),

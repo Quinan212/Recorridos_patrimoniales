@@ -52,8 +52,20 @@ android {
     }
 
     buildTypes {
+        debug {
+            // APK de prueba independiente: no reemplaza la instalación habitual.
+            if (project.hasProperty("MAPA_3D_PRUEBA")) {
+                applicationIdSuffix = ".mapa3d"
+                versionNameSuffix = "-mapa3d"
+                resValue("string", "app_name", "Recorridos · mapa 3D")
+            }
+        }
         release {
-            signingConfig = signingConfigs.getByName("release")
+            // Release optimizado para el emulador con la firma local existente.
+            // La firma de publicación se conserva para las builds habituales.
+            signingConfig = signingConfigs.getByName(
+                if (project.hasProperty("RELEASE_LOCAL_EMULADOR")) "debug" else "release"
+            )
         }
     }
 }

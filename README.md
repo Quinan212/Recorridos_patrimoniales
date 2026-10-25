@@ -1,31 +1,25 @@
-# recorridos_patrimoniales
+# Recorridos Patrimoniales
 
-A new Flutter project.
+Aplicación Flutter para explorar el patrimonio arquitectónico de Concordia. Esta rama contiene la versión actual con mapa 3D nativo, cartografía local y carga de sectores por Internet.
 
-## Claude Code + DeepSeek V4 Pro
+## Desarrollo
 
-Si queres usar Claude Code contra un proxy compatible con Anthropic y enrutarlo a DeepSeek V4 Pro, ya deje una guia y un launcher en el repo:
-
-- [Guia de setup](docs/claude-deepseek-proxy.md)
-- [Launcher de PowerShell](scripts/start-claude-deepseek.ps1)
-
-Resumen rapido:
-
-```powershell
-winget install Anthropic.ClaudeCode
-.\scripts\start-claude-deepseek.ps1 -ProxyBaseUrl "http://localhost:3000" -LaunchClaude
+```sh
+flutter pub get
+flutter run
+flutter test
+flutter analyze
+node test/limite_area_test.cjs
 ```
 
-## Getting Started
+La versión y las dependencias reproducibles se definen en `pubspec.yaml` y `pubspec.lock`. Las opciones `SUPABASE_URL`, `SUPABASE_ANON_KEY` y `MAPTILER_KEY` se suministran mediante `--dart-define` o el archivo local de definiciones indicado en la guía de publicación. No guardar credenciales privadas en el repositorio.
 
-This project is a starting point for a Flutter application.
+## Mapa y recursos
 
-A few resources to get you started if this is your first Flutter project:
+`assets/mapa_3d/` contiene la cartografía, fuentes, estilos y bibliotecas necesarias para el visor. Las teselas locales son recursos de la app, no la caché generada durante su ejecución. Conservar las atribuciones a MapTiler y OpenStreetMap, así como las licencias incluidas. Las coordenadas del catálogo se reconcilian con los puntos del KML.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Publicación Android
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Ver [guía de publicación](docs/publicacion-android.md). El [certificado público de subida](docs/firma/upload-certificate.pem) identifica la firma; no contiene la clave privada ni permite firmar una aplicación.
+
+Los keystores y sus contraseñas permanecen en `android/firma-upload/` y `android/key.properties`, excluidos de Git. Los APK/AAB, cachés y dependencias descargadas tampoco se versionan. Las exportaciones GeoJSON intermedias de edificios y sombras se conservan solo localmente; el visor usa los recursos optimizados.

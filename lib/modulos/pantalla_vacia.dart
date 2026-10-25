@@ -5,10 +5,6 @@ class PantallaVacia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Próximamente'),
-      ),
-    );
+    return const Scaffold(body: Center(child: Text('Próximamente')));
   }
 }

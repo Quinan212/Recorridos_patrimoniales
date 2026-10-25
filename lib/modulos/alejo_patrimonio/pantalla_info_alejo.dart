@@ -13,72 +13,72 @@ class PantallaInfoAlejo extends StatelessWidget {
         top: true,
         bottom: true,
         child: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 40.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Informacion extra',
-              style: GoogleFonts.playfairDisplay(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xFF1A1A1A),
+          padding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 40.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Información extra',
+                style: GoogleFonts.playfairDisplay(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xFF1A1A1A),
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Contexto, fuentes y creditos del proyecto.',
-              style: GoogleFonts.inter(fontSize: 14, color: Colors.grey[600]),
-            ),
-            const SizedBox(height: 32),
+              const SizedBox(height: 8),
+              Text(
+                'Contexto, fuentes y créditos del proyecto.',
+                style: GoogleFonts.inter(fontSize: 14, color: Colors.grey[600]),
+              ),
+              const SizedBox(height: 32),
 
-            // BIOGRAFIA
-            _armarTarjeta(
-              titulo: 'Arquitecto Alejo Martinez',
-              contenido: [
-                'Alejo Martinez (hijo) fue un arquitecto uruguayo asociado al primer modernismo rioplatense. Formado en el ambiente academico de Buenos Aires y atento a las vanguardias europeas, traslado esas ideas a la escala domestica con una mirada pragmatica: claridad de planta, economia de recursos y luz natural como criterio rector.',
-                'Su etapa decisiva transcurrio en el litoral argentino, especialmente en Concordia, donde proyecto y construyo un conjunto notable de viviendas. Alli ensayo soluciones que reemplazaron la "casa chorizo" por tipologias compactas, con circulaciones mas eficientes y un uso activo de la azotea y la terraza.',
-                'El lenguaje arquitectonico de Martinez se reconoce por volumenes puros, desfasajes sobrios, esquinas que se vuelven protagonistas y fachadas sin ornamentos superfluos. No es un formalismo vacio: cada decision responde a clima, asoleamiento, ventilacion y modos de habitar locales.',
-                'Su legado es doble: por un lado, introdujo con coherencia el racionalismo a escala barrial; por otro, dejo un mapa tangible de modernidad cotidiana que todavia estructura paisajes urbanos del litoral. Las casas ya no son solo objetos aislados, sino piezas que ordenan esquinas, veredas y recorridos.',
-              ],
-              contenidoExtra: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  _armarFotoHistorica(
-                    'assets/imagenes/arquitecto/alejo_martinez.jpg',
-                    'Retrato de Alejo Martinez (h).',
-                    esRecurso: true,
-                  ),
+              // BIOGRAFIA
+              _armarTarjeta(
+                titulo: 'Arquitecto Alejo Martínez',
+                contenido: [
+                  'Alejo Martínez (hijo) fue un arquitecto uruguayo asociado al primer modernismo rioplatense. Formado en el ambiente académico de Buenos Aires y atento a las vanguardias europeas, trasladó esas ideas a la escala doméstica con una mirada pragmática: claridad de planta, economía de recursos y luz natural como criterio rector.',
+                  'Su etapa decisiva transcurrió en el litoral argentino, especialmente en Concordia, donde proyectó y construyó un conjunto notable de viviendas. Allí ensayó soluciones que reemplazaron la "casa chorizo" por tipologías compactas, con circulaciones más eficientes y un uso activo de la azotea y la terraza.',
+                  'El lenguaje arquitectónico de Martínez se reconoce por volúmenes puros, desfasajes sobrios, esquinas que se vuelven protagonistas y fachadas sin ornamentos superfluos. No es un formalismo vacío: cada decisión responde a clima, asoleamiento, ventilación y modos de habitar locales.',
+                  'Su legado es doble: por un lado, introdujo con coherencia el racionalismo a escala barrial; por otro, dejó un mapa tangible de modernidad cotidiana que todavía estructura paisajes urbanos del litoral. Las casas ya no son solo objetos aislados, sino piezas que ordenan esquinas, veredas y recorridos.',
+                ],
+                contenidoExtra: Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    _armarFotoHistorica(
+                      'assets/imagenes/arquitecto/alejo_martinez.jpg',
+                      'Retrato de Alejo Martínez (h).',
+                      esRecurso: true,
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // SOBRE EL PROYECTO
+              _armarTarjeta(
+                titulo: 'Sobre este proyecto',
+                contenido: [
+                  'Este proyecto se realiza con fines educativos y de divulgación del patrimonio arquitectónico local. Busca visibilizar obras y procesos poco conocidos, de gran valor para la memoria urbana y la cultura, acercando información clara y accesible para que más personas puedan conocer, valorar y preservar estos bienes.',
+                  'Esta aplicación interactiva te propone explorar esa obra en contexto. Vas a encontrar cada vivienda geolocalizada, con fotos comparativas, fichas técnicas, planos esquemáticos y claves de lectura para entender que hace "moderna" a cada solución.',
+                  'Podés armar tus propios recorridos, filtrar por rasgos (esquinas, terrazas, relieves) y comparar obras para ver cómo la idea se adapta a cada sitio.',
                 ],
               ),
-            ),
 
-            const SizedBox(height: 24),
+              const SizedBox(height: 24),
 
-            // SOBRE EL PROYECTO
-            _armarTarjeta(
-              titulo: 'Sobre este proyecto',
-              contenido: [
-                'Este proyecto se realiza con fines educativos y de divulgacion del patrimonio arquitectonico local. Busca visibilizar obras y procesos poco conocidos, de gran valor para la memoria urbana y la cultura, acercando informacion clara y accesible para que mas personas puedan conocer, valorar y preservar estos bienes.',
-                'Esta aplicacion interactiva te propone explorar esa obra en contexto. Vas a encontrar cada vivienda geolocalizada, con fotos comparativas, fichas tecnicas, planos esquematicos y claves de lectura para entender que hace "moderna" a cada solucion.',
-                'Podes armar tus propios recorridos, filtrar por rasgos (esquinas, terrazas, relieves) y comparar obras para ver como la idea se adapta a cada sitio.',
-              ],
-            ),
+              // BIBLIOGRAFIA (Expansion Tile)
+              _armarBibliografia(),
 
-            const SizedBox(height: 24),
+              const SizedBox(height: 24),
 
-            // BIBLIOGRAFIA (Expansion Tile)
-            _armarBibliografia(),
+              // AUTORIA Y CREDITOS
+              _armarSeccionCreditos(),
 
-            const SizedBox(height: 24),
-
-            // AUTORIA Y CREDITOS
-            _armarSeccionCreditos(),
-
-            const SizedBox(height: 100),
-          ],
+              const SizedBox(height: 100),
+            ],
+          ),
         ),
-      ),
       ).animate().fadeIn(duration: 600.ms),
     );
   }
@@ -190,34 +190,33 @@ class PantallaInfoAlejo extends StatelessWidget {
 
   Widget _armarBibliografia() {
     final List<String> fuentes = [
-      '"Arquitectura en Concordia". Revista Nuestra Arquitectura. Ano 3. Nro. 35. Junio, 1932, Buenos Aires.',
-      'Ahora Entre Rios. (15 de agosto de 2025). Concordia fue designada como la "Ciudad Art Nouveau 2025 de America". Ahora Entre Rios.',
-      'Bertoncello, R.; Castro, H. y Zuman, P. (2003). Turismo y patrimonio: una relacion puesta en cuestion. En: Bertoncello, R. y Carlos, A. F. (Eds.). Procesos Territoriales en Argentina y Brasil. Buenos Aires, Ed. Instituto de Geografia.',
-      'Bruno, Maria Alejandra; Caseres, Exequiel y otros. (2019). Arquitectura de Concordia: catalogo de obras patrimoniales. edUTecN',
-      'Cammarata, E. B. (2006). El turismo como practica social y su papel en la apropiacion y consolidacion del territorio. En Geraiges de Lemos A. I.; Arroyo, M.; Silveira, M. L. (Eds.) America Latina: cidade, campo e turismo. CLACSO, Sao Paulo.',
-      'Carrion, F (2001). Las nuevas tendencias de la urbanizacion en America Latina. En: Carrion, F. (Ed.). La ciudad construida. Urbanismo en America Latina: 7-24. Ecuador, FLACSO.',
-      'DailyWeb. (3 de mayo de 2025). El Art Nouveau en Concordia es un testimonio del esplendor urbano de la epoca y de la influencia europea. DailyWeb.',
-      'Durham, E. (1998). Cultura, patrimonio y preservacion. Alteridades 8 (16), 131-136.',
+      '"Arquitectura en Concordia". Revista Nuestra Arquitectura. Año 3. Nro. 35. Junio, 1932, Buenos Aires.',
+      'Ahora Entre Ríos. (15 de agosto de 2025). Concordia fue designada como la "Ciudad Art Nouveau 2025 de América". Ahora Entre Ríos.',
+      'Bertoncello, R.; Castro, H. y Zuman, P. (2003). Turismo y patrimonio: una relación puesta en cuestión. En: Bertoncello, R. y Carlos, A. F. (Eds.). Procesos Territoriales en Argentina y Brasil. Buenos Aires, Ed. Instituto de Geografía.',
+      'Bruno, Maria Alejandra; Caseres, Exequiel y otros. (2019). Arquitectura de Concordia: catálogo de obras patrimoniales. edUTecN',
+      'Cammarata, E. B. (2006). El turismo como práctica social y su papel en la apropiación y consolidación del territorio. En Geraiges de Lemos A. I.; Arroyo, M.; Silveira, M. L. (Eds.) América Latina: cidade, campo e turismo. CLACSO, Sao Paulo.',
+      'Carrión, F (2001). Las nuevas tendencias de la urbanización en América Latina. En: Carrión, F. (Ed.). La ciudad construida. Urbanismo en América Latina: 7-24. Ecuador, FLACSO.',
+      'DailyWeb. (3 de mayo de 2025). El Art Nouveau en Concordia es un testimonio del esplendor urbano de la época y de la influencia europea. DailyWeb.',
+      'Durham, E. (1998). Cultura, patrimonio y preservación. Alteridades 8 (16), 131-136.',
       'El legado del arquitecto Alejo Martinez en Concordia, la Capital de la Modernidad, disponible en: https://youtu.be/GKZpXMERMok',
-      'Garcia Canclini, N. (1999). Los usos sociales del patrimonio. En: Aguilar Criado, E. (Ed.). Patrimonio etnologico. Nuevas perspectivas de estudio. Andalucia, Consejeria de Cultura de Andalucia.',
-      'Gimenez, C. y Navarro, A. (2006). La experiencia moderna en la Argentina, la obra de Alejo Martinez (h). Summa nro. 13, Buenos Aires.',
+      'García Canclini, N. (1999). Los usos sociales del patrimonio. En: Aguilar Criado, E. (Ed.). Patrimonio etnológico. Nuevas perspectivas de estudio. Andalucía, Consejería de Cultura de Andalucía.',
+      'Giménez, C. y Navarro, A. (2006). La experiencia moderna en la Argentina, la obra de Alejo Martínez (h). Summa nro. 13, Buenos Aires.',
       'Pipolo, J. A. (2013). Concordia. La ciudad y su arquitectura. 1831-1970. Duograf.',
-      'Prats, LL. (2004). Antropologia y patrimonio. Ariel.',
-      'Rotman, M. (2015). Procesos patrimoniales: redefiniciones, dinamica y tensiones. Quehaceres 2: 11-26.',
-      'Vazquez, M. (2012). El arquitecto Alejo Martinez (hijo). Concordia.',
+      'Prats, LL. (2004). Antropología y patrimonio. Ariel.',
+      'Rotman, M. (2015). Procesos patrimoniales: redefiniciones, dinámica y tensiones. Quehaceres 2: 11-26.',
+      'Vázquez, M. (2012). El arquitecto Alejo Martínez (hijo). Concordia.',
     ];
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      clipBehavior: Clip.antiAlias,
       child: Theme(
         data: ThemeData().copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
           leading: const Icon(Icons.menu_book, color: Color(0xFF1A1A1A)),
           title: Text(
-            'Bibliografia',
+            'Bibliografía',
             style: GoogleFonts.inter(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -274,7 +273,7 @@ class PantallaInfoAlejo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Autoria y Creditos',
+            'Autoría y Créditos',
             style: GoogleFonts.inter(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -303,5 +302,4 @@ class PantallaInfoAlejo extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -1,0 +1,1 @@
+Visor móvil de Recorridos Patrimoniales. Cartografía y niebla derivadas del exportado v12. Las fichas se resuelven en Flutter; los datos del KML fijan las ubicaciones. Conservar las atribuciones de MapTiler y OpenStreetMap y vendor/LICENSE-MapLibre.txt. Integración y pruebas documentadas en pruebas-mapas/integracion-app/README.md del workspace.

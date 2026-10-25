@@ -29,14 +29,18 @@ class ServicioAdminPublicaciones {
     }
 
     final cliente = Supabase.instance.client;
-    final resultado = await cliente.from('publications').insert({
-      'title': titulo,
-      'description': descripcion,
-      'event_name': nombreEvento,
-      'event_date': fechaEvento?.toIso8601String(),
-      'created_by_device_id': estadoAdmin.identidad.id,
-      'is_published': true,
-    }).select('id').single();
+    final resultado = await cliente
+        .from('publications')
+        .insert({
+          'title': titulo,
+          'description': descripcion,
+          'event_name': nombreEvento,
+          'event_date': fechaEvento?.toIso8601String(),
+          'created_by_device_id': estadoAdmin.identidad.id,
+          'is_published': true,
+        })
+        .select('id')
+        .single();
 
     return resultado['id'] as String;
   }
@@ -57,13 +61,16 @@ class ServicioAdminPublicaciones {
       throw StateError('Este dispositivo no tiene permiso admin.');
     }
 
-    await Supabase.instance.client.from('publications').update({
-      'title': titulo,
-      'description': descripcion,
-      'event_name': nombreEvento,
-      'event_date': fechaEvento?.toIso8601String(),
-      'updated_at': DateTime.now().toUtc().toIso8601String(),
-    }).eq('id', id);
+    await Supabase.instance.client
+        .from('publications')
+        .update({
+          'title': titulo,
+          'description': descripcion,
+          'event_name': nombreEvento,
+          'event_date': fechaEvento?.toIso8601String(),
+          'updated_at': DateTime.now().toUtc().toIso8601String(),
+        })
+        .eq('id', id);
   }
 
   // ---------------------------------------------------------------------------
@@ -128,14 +135,16 @@ class ServicioAdminPublicaciones {
         'publication_uploads/$idDispositivo/$publicationId/${DateTime.now().millisecondsSinceEpoch}_${_hexAleatorio(5)}.$extension';
     final cliente = Supabase.instance.client;
 
-    await cliente.storage.from(_nombreBucket).uploadBinary(
-      ruta,
-      Uint8List.fromList(bytes),
-      fileOptions: FileOptions(
-        contentType: _tipoContenidoPara(extension),
-        cacheControl: '31536000',
-      ),
-    );
+    await cliente.storage
+        .from(_nombreBucket)
+        .uploadBinary(
+          ruta,
+          Uint8List.fromList(bytes),
+          fileOptions: FileOptions(
+            contentType: _tipoContenidoPara(extension),
+            cacheControl: '31536000',
+          ),
+        );
 
     try {
       await cliente.from('publication_images').insert({
@@ -226,8 +235,8 @@ class SupabaseServiceHelper {
   }) async {
     final extension = contentType.split('/').last;
     final cliente = Supabase.instance.client;
-    final idDispositivo =
-        await const ServicioIdentidadDispositivo().obtenerOCrearIdDispositivo();
+    final idDispositivo = await const ServicioIdentidadDispositivo()
+        .obtenerOCrearIdDispositivo();
     final hex = List.generate(
       5,
       (_) => DateTime.now().microsecondsSinceEpoch.toRadixString(16),
@@ -235,14 +244,16 @@ class SupabaseServiceHelper {
     final ruta =
         'publication_uploads/$idDispositivo/$publicationId/${DateTime.now().millisecondsSinceEpoch}_$hex.$extension';
 
-    await cliente.storage.from(_nombreBucket).uploadBinary(
-      ruta,
-      Uint8List.fromList(bytes),
-      fileOptions: FileOptions(
-        contentType: contentType,
-        cacheControl: '31536000',
-      ),
-    );
+    await cliente.storage
+        .from(_nombreBucket)
+        .uploadBinary(
+          ruta,
+          Uint8List.fromList(bytes),
+          fileOptions: FileOptions(
+            contentType: contentType,
+            cacheControl: '31536000',
+          ),
+        );
 
     await cliente.from('publication_images').insert({
       'publication_id': publicationId,

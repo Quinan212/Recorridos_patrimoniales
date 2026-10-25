@@ -46,3 +46,28 @@ app.*.map.json
 
 # Codex Archive
 /codex_archive/
+
+# Firma de Google Play: conservar localmente y excluir de los fuentes públicos.
+/android/firma-upload/
+/android/key.properties
+
+# Archivos regenerables y configuración privada de cada equipo.
+**/__pycache__/
+**/node_modules/
+**/.cache/
+**/ephemeral/
+*.apk
+*.aab
+*.jks
+*.keystore
+*.p12
+*.pfx
+.env
+.env.*
+!.env.example
+/tmp/
+/output/
+
+# Exportaciones intermedias: el mapa usa las teselas y GeoJSON optimizados.
+/assets/mapa_3d/cartografia/buildings.geojson
+/assets/mapa_3d/cartografia/shadows.geojson

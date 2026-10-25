@@ -22,14 +22,17 @@ subprojects {
 subprojects {
     project.evaluationDependsOn(":app")
 
-    tasks.withType<JavaCompile>().configureEach {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
-    }
+    // MapLibre 0.27 usa Java/Kotlin 21; conservar el toolchain del plugin.
+    if (project.name != "maplibre_gl") {
+        tasks.withType<JavaCompile>().configureEach {
+            sourceCompatibility = "17"
+            targetCompatibility = "17"
+        }
 
-    tasks.withType<KotlinCompile>().configureEach {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+        tasks.withType<KotlinCompile>().configureEach {
+            compilerOptions {
+                jvmTarget.set(JvmTarget.JVM_17)
+            }
         }
     }
 }

@@ -66,7 +66,7 @@ class BarraBusquedaMorphing extends StatelessWidget {
                         child: Opacity(
                           opacity: textOpacity,
                           child: const Text(
-                            'Buscar puntos, publicaciones...',
+                            'Buscar obras y direcciones...',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

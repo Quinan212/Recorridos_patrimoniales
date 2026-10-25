@@ -1,0 +1,530 @@
+{
+  "source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+  "points": [
+    {
+      "id": "r1-casa-de-bernardino-horne",
+      "name": "Casa de Bernardino Horne",
+      "address": "Pellegrini y 3 de Febrero",
+      "description": "Es una vivienda de estilo moderno, entre medianeras, con un planteo similar a la Casa Péndola Díaz. La fachada es recta y está totalmente despojada de ornamentación, presentando un juego de llenos y vacíos y un balcón que aparece como una perforación. El programa incluye dos espacios para atención al público con acceso independiente, además de la vivienda. Cuenta con terrazas accesibles que posibilitan la expansión de las habitaciones. Antecedentes: Construida en 1930, es una obra de corte racionalista perteneciente al primer período de Alejo Martínez en Concordia. Declaratorias: Declarada Propiedad de Interés Municipal.",
+      "lat": -31.392044,
+      "lng": -58.0154164,
+      "images": [
+        "assets/imagenes/puntos/casa-de-bernardino-horne/1.jpg",
+        "assets/imagenes/puntos/casa-de-bernardino-horne/2.jpg",
+        "assets/imagenes/puntos/casa-de-bernardino-horne/3.jpg",
+        "assets/imagenes/puntos/casa-de-bernardino-horne/4.jpg",
+        "assets/imagenes/puntos/casa-de-bernardino-horne/5.jpg",
+        "assets/imagenes/puntos/casa-de-bernardino-horne/6.jpg"
+      ],
+      "catalogPage": 22,
+      "revision": "Revisión ortográfica: 29/09/2026. Datos históricos pendientes de cotejo.",
+      "number": 1,
+      "photo": "heritage-photos/r1-casa-de-bernardino-horne.jpg",
+      "location": [
+        -58.0154164,
+        -31.392044
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "building_center": null,
+      "building_index": null,
+      "building_verified": false,
+      "height": null,
+      "provider_height": null,
+      "matching_distance_m": null,
+      "relief_note": "Punto tomado exactamente de My Maps. Se retiró el edificio incorrecto; el KML no identifica el contorno del inmueble.",
+      "building_indices": [],
+      "visual_reviewed": false,
+      "facade_anchor": [
+        -58.0154164,
+        -31.392044
+      ],
+      "visual_reference": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "source_name": "Casa de Bernardino Horne",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "building_status": "pending_building_identification",
+      "zone": "centro"
+    },
+    {
+      "id": "r1-casa-juan-antonio-castro",
+      "name": "Casa Juan Antonio Castro",
+      "address": "Pellegrini y 3 de Febrero",
+      "description": "Vivienda de estilo moderno en esquina, desarrollada originalmente en dos plantas. La fachada original presentaba planos simples sin ornamentación. La vivienda diferenciaba claramente las áreas de servicio, privada y de recepción. En 2007, se le añadieron dos niveles superiores totalmente vidriados, alterando su aspecto original. Antecedentes: Construida en 1929, pertenece a la obra racionalista de Alejo Martínez. Declaratorias: Propiedad de Interés Municipal.",
+      "lat": -31.3916492,
+      "lng": -58.0152065,
+      "images": [
+        "assets/imagenes/puntos/casa-juan-antonio-castro/Screenshot_1776823823.jpg",
+        "assets/imagenes/puntos/casa-juan-antonio-castro/Screenshot_1776823825.jpg",
+        "assets/imagenes/puntos/casa-juan-antonio-castro/Screenshot_1776823827.jpg"
+      ],
+      "catalogPage": 36,
+      "revision": "Revisión ortográfica: 29/09/2026. Datos históricos pendientes de cotejo.",
+      "number": 2,
+      "photo": "heritage-photos/r1-casa-juan-antonio-castro.jpg",
+      "location": [
+        -58.0152065,
+        -31.3916492
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "building_center": [
+        -58.015123818601886,
+        -31.39163032757955
+      ],
+      "building_index": 608,
+      "building_verified": true,
+      "height": 12,
+      "provider_height": 5,
+      "matching_distance_m": 0.3,
+      "relief_note": "Edificio conservado: el usuario confirmó la asociación de Castro. Punto tomado exactamente de My Maps.",
+      "building_indices": [
+        608
+      ],
+      "visual_reviewed": true,
+      "facade_anchor": [
+        -58.0152065,
+        -31.3916492
+      ],
+      "visual_reference": "https://www.google.com/maps/@-31.3914594,-58.0153761,36a,90y,90h,90t/data=!3m7!1e1!3m5!1syHo3Gr_GpIKMKppveyf3Gw!2e0!7i16384!8i8192",
+      "source_name": "Casa Juan Antonio Castro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "building_status": "confirmed_by_user",
+      "zone": "centro"
+    },
+    {
+      "id": "r1-casa-del-dr-pendola-diaz",
+      "name": "Casa del Dr. Péndola Díaz",
+      "address": "Güemes 27–35, entre San Luis y Entre Ríos",
+      "description": "Vivienda con consultorios, proyectada por Alejo Martínez en 1925. Bruno, Cáseres y Sota la consideran la primera construcción moderna del país en la presentación de su catálogo (página 11 del PDF). Esta valoración se refiere a su lenguaje arquitectónico y organización funcional.",
+      "lat": -31.393054,
+      "lng": -58.018508,
+      "images": [
+        "assets/imagenes/puntos/casa-del-dr-péndola-diaz/Screenshot_1776823630.jpg",
+        "assets/imagenes/puntos/casa-del-dr-péndola-diaz/Screenshot_1776823632.jpg",
+        "assets/imagenes/puntos/casa-del-dr-péndola-diaz/Screenshot_1776823633.jpg",
+        "assets/imagenes/puntos/casa-del-dr-péndola-diaz/Screenshot_1776823635.jpg",
+        "assets/imagenes/puntos/casa-del-dr-péndola-diaz/Screenshot_1776823637.jpg",
+        "assets/imagenes/puntos/casa-del-dr-péndola-diaz/Screenshot_1776823641.jpg"
+      ],
+      "catalogPage": 20,
+      "revision": "Revisión editorial: 29/09/2026. Fecha, dirección e interpretación histórica cotejadas con la UTN.",
+      "number": 3,
+      "photo": "heritage-photos/r1-casa-del-dr-pendola-diaz.jpg",
+      "location": [
+        -58.018508,
+        -31.393054
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "building_center": null,
+      "building_index": null,
+      "building_verified": false,
+      "height": null,
+      "provider_height": null,
+      "matching_distance_m": null,
+      "relief_note": "Punto tomado exactamente de My Maps. Se retiró el edificio incorrecto; el KML no identifica el contorno del inmueble.",
+      "building_indices": [],
+      "visual_reviewed": false,
+      "facade_anchor": [
+        -58.018508,
+        -31.393054
+      ],
+      "visual_reference": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "source_name": "Casa del Dr. Péndola Diaz",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "building_status": "pending_building_identification",
+      "zone": "centro"
+    },
+    {
+      "id": "r1-casa-dr-orlando-marcone",
+      "name": "Casa Dr. Orlando Marcone",
+      "source_name": "Casa Dr. Orlando Marcone",
+      "number": 4,
+      "lat": -31.393915,
+      "lng": -58.019084,
+      "location": [
+        -58.019084,
+        -31.393915
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Vivienda moderna en esquina, dos plantas con consultorio. Volúmenes salientes en ambas fachadas con influencias vanguardistas; muros exteriores con terminación escalonada; aleros triangulares; influencias Art-Deco. Distribución funcional: sociales/consultorio en planta baja y dormitorios arriba. Antecedentes: 1928, primer período de Martínez. Declaratorias: Propiedad de Interés Municipal.",
+      "address": "V. Sarsfield y San Luis",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "photo": "heritage-photos/r1-casa-dr-orlando-marcone.jpg"
+    },
+    {
+      "id": "r1-casa-alberto-crossa",
+      "name": "Casa Alberto Crossa",
+      "source_name": "Casa Alberto Crossa",
+      "number": 5,
+      "lat": -31.39553,
+      "lng": -58.018322,
+      "location": [
+        -58.018322,
+        -31.39553
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Edificio moderno con tipología viviendas arriba y locales abajo, sobre la peatonal. Fachada con dos balcones en los extremos y ventanas al centro; planta baja hoy muy intervenida. Antecedentes: Viviendas colectivas con locales de fines de los '20 poblaron el centro. Declaratorias: Propiedad de Interés Municipal.",
+      "address": "San Luis y Entre Ríos",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "photo": "heritage-photos/r1-casa-alberto-crossa.jpg"
+    },
+    {
+      "id": "r1-casa-arcioni",
+      "name": "Casa Arcioni",
+      "source_name": "Casa Arcioni",
+      "number": 6,
+      "lat": -31.396703,
+      "lng": -58.018683,
+      "location": [
+        -58.018683,
+        -31.396703
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Es un amplio local comercial de estilo moderno, ubicado en esquina y desarrollado en dos plantas. La fachada se caracteriza por planos simples y predominio de líneas. Fue la sede de la tradicional tienda Hidalgo Solo. Antecedentes: Pertenece al primer período de Alejo Martínez en Concordia (1924-1931). Declaratorias: Declarada Propiedad de Interés Municipal.",
+      "address": "Urquiza y San Luis",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "photo": "heritage-photos/r1-casa-arcioni.jpg"
+    },
+    {
+      "id": "r1-banco-popular-de-concordia",
+      "name": "Banco Popular de Concordia",
+      "source_name": "Banco Popular de Concordia",
+      "number": 7,
+      "lat": -31.396869,
+      "lng": -58.01767,
+      "location": [
+        -58.01767,
+        -31.396869
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Edificio de estilo moderno en esquina, de dos plantas. La fachada presenta líneas rectas y muy poca ornamentación, excepto en jambas y acceso; cornisa lineal. Actualmente se encuentra muy intervenido por la subdivisión en locales. Antecedentes: El banco se fundó en 1917; la remodelacion de Martínez es de 1930. Tras la fusión/cierre, se subdividió en locales comerciales. Declaratorias: Declarada Propiedad de Interés Municipal.",
+      "address": "Urquiza y Mitre",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "photo": "heritage-photos/r1-banco-popular-de-concordia.jpg"
+    },
+    {
+      "id": "r1-casa-dr-camano",
+      "name": "Casa Dr. Camaño",
+      "source_name": "Casa Dr. Camaño",
+      "number": 8,
+      "lat": -31.397376,
+      "lng": -58.014552,
+      "location": [
+        -58.014552,
+        -31.397376
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Vivienda de estilo moderno en esquina, desarrollada en dos plantas; fachada recta con planos simples, sin molduras. Zonificación funcional: recepción y servicios en planta baja; área privada en planta alta. Un porche en doble altura enmarca el acceso y protege la terraza-balcón. Antecedentes: 1930-1931; primer período de Martínez. Declaratorias: Declarada Propiedad de Interés Municipal.",
+      "address": "La Rioja y Mitre",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "photo": "heritage-photos/r1-casa-dr-camano.jpg"
+    },
+    {
+      "id": "r1-casa-suburo",
+      "name": "Casa Suburo",
+      "source_name": "Casa Suburo",
+      "number": 9,
+      "lat": -31.397619,
+      "lng": -58.013872,
+      "location": [
+        -58.013872,
+        -31.397619
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Conjunto Suburo, Masvernat y Woolmer - Casa Suburo (Mitre 237, 1929), Casa Masvernat (Mitre 259, 1931) y Casa Woolmer (Mitre 271, 1930). Permiten observar la evolución estilística y funcional de Alejo Martínez en una misma calle.",
+      "address": "Mitre 237",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "photo": "heritage-photos/r1-casa-suburo.jpg"
+    },
+    {
+      "id": "r1-casa-juana-c-de-salduna",
+      "name": "Casa Juana C. de Salduna",
+      "address": "Urquiza 862",
+      "description": "Vivienda de estilo eclectico, entre medianeras, organizada en dos plantas. Fachada plana con molduras, almohadillados, balcón con mensulas y balaustradas en el remate. Planta funcional y racional con acceso para cochera/consultorios y otro para la vivienda. Antecedentes: Aunque es de 1930 (primer período de Martínez), se aparta de la modernidad en la fachada con recursos eclecticos pero mantiene organización funcional. Declaratorias: Propiedad de Interés Municipal.",
+      "lat": -31.393168,
+      "lng": -58.01734,
+      "images": [
+        "assets/imagenes/puntos/casa-juana-c-de-salduna/Screenshot_1776823767.jpg",
+        "assets/imagenes/puntos/casa-juana-c-de-salduna/Screenshot_1776823768.jpg",
+        "assets/imagenes/puntos/casa-juana-c-de-salduna/Screenshot_1776823770.jpg"
+      ],
+      "catalogPage": 28,
+      "revision": "Revisión ortográfica: 29/09/2026. Datos históricos pendientes de cotejo.",
+      "number": 10,
+      "photo": "heritage-photos/r1-casa-juana-c-de-salduna.jpg",
+      "location": [
+        -58.01734,
+        -31.393168
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "building_center": null,
+      "building_index": null,
+      "building_verified": false,
+      "height": null,
+      "provider_height": null,
+      "matching_distance_m": null,
+      "relief_note": "Punto tomado exactamente de My Maps. Se retiró el edificio incorrecto; el KML no identifica el contorno del inmueble.",
+      "building_indices": [],
+      "visual_reviewed": false,
+      "facade_anchor": [
+        -58.01734,
+        -31.393168
+      ],
+      "visual_reference": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "source_name": "Casa Juana C. de Salduna",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "building_status": "pending_building_identification",
+      "zone": "centro"
+    },
+    {
+      "id": "r1-casa-sarli",
+      "name": "Casa Sarli",
+      "source_name": "Casa Sarli",
+      "number": 11,
+      "lat": -31.394913,
+      "lng": -58.018331,
+      "location": [
+        -58.018331,
+        -31.394913
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Edificio moderno: viviendas en planta superior y locales comerciales en planta baja; ubicado sobre la peatonal. Antecedentes: Conjunto de viviendas colectivas con locales de fines de los anos '20 que acompanaron el desarrollo del centro. Declaratorias: Propiedad de Interés Municipal.",
+      "address": "La Rioja y Carriego",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "photo": "heritage-photos/r1-casa-sarli.jpg"
+    },
+    {
+      "id": "r1-casa-bardengo",
+      "name": "Casa Bardengo",
+      "source_name": "Casa Bardengo",
+      "number": 12,
+      "lat": -31.394078,
+      "lng": -58.018077,
+      "location": [
+        -58.018077,
+        -31.394078
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Edificio moderno en esquina, con viviendas en planta superior y locales en planta baja. Fachada con elementos Art-Deco, recta y con balcones salientes con reja metálica. Forma conjunto urbano con la Casa Cobelli (enfrente). Antecedentes: Construida en 1926; conjunto importante con Cobelli en esquina céntrica. Declaratorias: Propiedad de Interés Municipal.",
+      "address": "Hipólito Yrigoyen y Bernardo de Irigoyen",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "photo": "heritage-photos/r1-casa-bardengo.jpg"
+    },
+    {
+      "id": "r1-casa-cobelli",
+      "name": "Casa Cobelli",
+      "source_name": "Casa Cobelli",
+      "number": 13,
+      "lat": -31.394185,
+      "lng": -58.018136,
+      "location": [
+        -58.018136,
+        -31.394185
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Edificio moderno de tipología viviendas (planta alta) + locales (planta baja). Enfrentada a las viviendas Bardengo, generando un espacio urbano interesante. Antecedentes: Construida en 1926; conjunto urbano con la Casa Bardengo; la planta posibilita nuevas formas de vida y relación social (sistematización de espacios). Declaratorias: Propiedad de Interés Municipal.",
+      "address": "Entre Ríos 800",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "photo": "heritage-photos/r1-casa-cobelli.jpg"
+    },
+    {
+      "id": "r1-casa-minones",
+      "name": "Casa Otaño – Miñones",
+      "source_name": "Casa Otaño – Miñones",
+      "number": 14,
+      "lat": -31.39626,
+      "lng": -58.017478,
+      "location": [
+        -58.017478,
+        -31.39626
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Vivienda moderna perteneciente al primer período de Alejo Martínez. Presenta características del racionalismo con plantas funcionales y organización racional de los espacios. Construida por Alejandro Pipolo. Antecedentes: Propietarios originales María Estela Otano e Isaías Miñones. Forma parte del conjunto de obras que introdujeron las ideas vanguardistas en Concordia. Declaratorias: Propiedad de Interés Municipal.",
+      "address": "Urquiza 685",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "photo": "heritage-photos/r1-casa-minones.jpg"
+    },
+    {
+      "id": "r1-casa-artaghnan",
+      "name": "Casa Artaghnan",
+      "source_name": "Casa Artaghnan",
+      "number": 15,
+      "lat": -31.389694,
+      "lng": -58.01715,
+      "location": [
+        -58.01715,
+        -31.389694
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Vivienda de corte racionalista construida en 1930, despojada de toda ornamentación. Los esquemas de viviendas son compactos, con existencia de planta alta, aparecen terrazas, las plantas son funcionales y en muchos casos incluyen espacios para actividad profesional. Pertenece al primer período de Alejo Martínez en Concordia. Antecedentes: Construida para Juan Artaghnan. Actualmente modificada por intervención realizada en año 2000. Declaratorias: Propiedad de Interés Municipal.",
+      "address": "Entre Ríos y Avellaneda",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones"
+    },
+    {
+      "id": "r1-casa-hourcades",
+      "name": "Casa Hourcades",
+      "source_name": "Casa Hourcades",
+      "number": 16,
+      "lat": -31.398652,
+      "lng": -58.020334,
+      "location": [
+        -58.020334,
+        -31.398652
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Vivienda entre medianeras, donde tiene un acceso único, vehicular y peatonal, hacia un hall que distribuye al estar de planta baja, y a la escalera central. En planta alta se localizan dormitorios y baño. La vivienda se desarrolla entre medianeras en lote de 11 m. Posee balcones salientes, con una escasa ornamentación, con barandas metálicas. Antecedentes: Construida para Oscar Hourcades, pertenece al primer período de Alejo Martínez. Declaratorias: Propiedad de Interés Municipal.",
+      "address": "Entre Ríos 700",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones"
+    },
+    {
+      "id": "r1-casa-benatena",
+      "name": "Casa Beñatena",
+      "source_name": "Casa Beñatena",
+      "number": 17,
+      "lat": -31.3990421,
+      "lng": -58.0150597,
+      "location": [
+        -58.0150597,
+        -31.3990421
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Vivienda que reitera la tipología de casa y consultorio. Posee un acceso vehicular y a la vivienda por el mismo lugar, y un acceso a la espera del consultorio. La escalera y área de circulación se ubica en el centro. En planta baja, además de consultorios, posee la actividad social, y en planta alta, dormitorios, baño y un estar íntimo. Repite la pérgola, característica de sus obras. La vivienda se desarrolla entre medianeras en lote de 10 m. Posee 2 balcones salientes con una escasa ornamentación. Antecedentes: Construida para Nicolás Beñatena por Castiglione y Casarino Constructores. Declaratorias: Propiedad de Interés Municipal.",
+      "address": "Pellegrini 650",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones"
+    },
+    {
+      "id": "r1-liga-argentina-prestamos-mutuos",
+      "name": "Liga Argentina de Préstamos Mutuos",
+      "source_name": "Liga Argentina de Préstamos Mutuos",
+      "number": 18,
+      "lat": -31.3998903,
+      "lng": -58.0193816,
+      "location": [
+        -58.0193816,
+        -31.3998903
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Edificio entre medianeras, originalmente fue sede de la Liga Argentina de Préstamos Mutuos. La fachada es simple, sin ornamentación. La planta de este edificio refleja el desarrollo de las nuevas transformaciones en la forma de vida y la relación social. Estos cambios se manifiestan en la sistematización y modulación de los espacios y las fachadas, y el ordenamiento de las funciones bien definidas. Uso original: viviendas y locales comerciales, según la ficha del catálogo de la UTN.",
+      "address": "Entre Ríos 487, entre Roque Sáenz Peña y Carriego",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones"
+    },
+    {
+      "id": "r1-casa-fernandez",
+      "name": "Casa Manuel Fernández",
+      "source_name": "Casa Manuel Fernández",
+      "number": 19,
+      "lat": -31.399097,
+      "lng": -58.020703,
+      "location": [
+        -58.020703,
+        -31.399097
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Vivienda construida en 1931. Si bien pertenece al 1er período de Alejo Martínez, en está propiedad se aleja de los planteos de los postulados de la modernidad, incorporando en la fachada elementos decorativos del eclecticismo, aunque no así en planta, ya que la misma se organiza de manera funcional y racional. Antecedentes: Construida para Manuel M. Fernández por el constructor Hugo Belli. Declaratorias: Propiedad de Interés Municipal.",
+      "address": "Urquiza y Pellegrini",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones"
+    },
+    {
+      "id": "r1-casa-caprio",
+      "name": "Casa Caprio",
+      "source_name": "Casa Caprio",
+      "number": 20,
+      "lat": -31.397248,
+      "lng": -58.020636,
+      "location": [
+        -58.020636,
+        -31.397248
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Vivienda moderna entre medianeras proyectada por Alejo Martínez (h) para la Familia Caprio. Se desarrolla en dos plantas sobre un lote de 11,62 m de frente, con ingreso peatonal y vehicular mediante un receso de fachada que genera un hall semicubierto. Presenta fachada recta de textura lisa, planos simples y ausencia de ornamentación; el único elemento saliente es un balcón. Uso original y actual: vivienda.",
+      "address": "Bernardo de Irigoyen 83, entre Sarmiento y San Luis",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones"
+    },
+    {
+      "id": "r1-casilla-juez-de-raya",
+      "name": "Casilla del Juez de Raya",
+      "source_name": "Casilla del Juez de Raya",
+      "number": 21,
+      "lat": -31.361992,
+      "lng": -58.06508,
+      "location": [
+        -58.06508,
+        -31.361992
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Construcción de doble planta en el hipódromo, con una planta oval que rememora el trazado del hipódromo. Posee una escalera caracol en uno de sus extremos. De corte racionalista, despojada de toda ornamentación, se observa con la misma implantación y en intactas condiciones en su conjunto. Planos simples en fachadas, sin ornamentación. Antecedentes: Construida en 1931, pertenece al primer período de Alejo Martínez. Se encuentra en el Hipódromo de Concordia, Barrio Cambá Paso. Declaratorias: Propiedad de Interés Municipal.",
+      "address": "Hipódromo de Concordia",
+      "building_verified": false,
+      "zone": "casilla",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones"
+    },
+    {
+      "id": "r1-casa-masvernat",
+      "name": "Casa Masvernat",
+      "source_name": "Casa Masvernat",
+      "number": 22,
+      "lat": -31.3977437,
+      "lng": -58.012836,
+      "location": [
+        -58.012836,
+        -31.3977437
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Conjunto Suburo, Masvernat y Woolmer - Casa Suburo (Mitre 237, 1929), Casa Masvernat (Mitre 259, 1931) y Casa Woolmer (Mitre 271, 1930). Permiten observar la evolución estilística y funcional de Alejo Martínez en una misma calle.",
+      "address": "Mitre 259",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "photo": "heritage-photos/r1-casa-masvernat.jpg"
+    },
+    {
+      "id": "r1-casa-woolmer",
+      "name": "Casa Woolmer",
+      "source_name": "Casa Woolmer",
+      "number": 23,
+      "lat": -31.3979589,
+      "lng": -58.0115003,
+      "location": [
+        -58.0115003,
+        -31.3979589
+      ],
+      "location_source": "https://www.google.com/maps/d/viewer?mid=1Q6b0ciko1J-0qfzyZ2fVywgHYcwDS_0",
+      "description": "Conjunto Suburo, Masvernat y Woolmer - Casa Suburo (Mitre 237, 1929), Casa Masvernat (Mitre 259, 1931) y Casa Woolmer (Mitre 271, 1930). Permiten observar la evolución estilística y funcional de Alejo Martínez en una misma calle.",
+      "address": "Mitre 271",
+      "building_verified": false,
+      "zone": "centro",
+      "address_source": "Catálogo de la app, sin geocodificar; el KML no contiene direcciones",
+      "photo": "heritage-photos/r1-casa-woolmer.jpg"
+    }
+  ]
+}

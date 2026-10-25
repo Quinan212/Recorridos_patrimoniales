@@ -53,18 +53,18 @@ class Publicacion {
 final List<Publicacion> publicacionesSeed = [
   Publicacion(
     id: 'pub-presentacion-1',
-    titulo: 'Presentacion en Fundacion Magma',
+    titulo: 'Presentación en Fundación Magma',
     descripcion:
-        'Primera presentacion publica del proyecto Recorridos Patrimoniales '
-        'en la Fundacion Concordia. Compartimos la genesis de la aplicacion, '
-        'el proceso de investigacion detras del catalogo de obras de Alejo '
-        'Martinez y la vision de poner el patrimonio arquitectonico al '
+        'Primera presentación pública del proyecto Recorridos Patrimoniales '
+        'en la Fundación Magma. Compartimos la génesis de la aplicación, '
+        'el proceso de investigación detrás del catálogo de obras de Alejo '
+        'Martínez y la visión de poner el patrimonio arquitectónico al '
         'alcance de todos.\n\n'
-        'La recepcion del publico fue excelente, con preguntas y debates '
-        'que enriquecieron el enfoque del proyecto. Tambien presentamos '
-        'material grafico inedito: planos originales, fotografias historicas '
+        'La recepción del público fue excelente, con preguntas y debates '
+        'que enriquecieron el enfoque del proyecto. También presentamos '
+        'material gráfico inédito: planos originales, fotografías históricas '
         'y comparativas del estado actual de las obras.',
-    nombreEvento: 'Fundacion Magma',
+    nombreEvento: 'Fundación Magma',
     fechaEvento: DateTime(2025, 12),
     urlsImagenes: ['assets/imagenes/publicaciones/fundacion-magma.jpg'],
     orden: 0,
@@ -73,17 +73,17 @@ final List<Publicacion> publicacionesSeed = [
     id: 'pub-presentacion-2',
     titulo: 'Actividad interinstitucional en el Profesorado de Artes Visuales',
     descripcion:
-        'Segunda presentacion del proyecto, esta vez en el Profesorado '
-        'de Artes Visuales. Abordamos la relacion entre arte, arquitectura '
-        'y tecnologia: como una aplicacion movil puede convertirse en una '
-        'herramienta de divulgacion y concientizacion sobre el valor del '
+        'Segunda presentación del proyecto, esta vez en el Profesorado '
+        'de Artes Visuales. Abordamos la relación entre arte, arquitectura '
+        'y tecnología: cómo una aplicación móvil puede convertirse en una '
+        'herramienta de divulgación y concientización sobre el valor del '
         'patrimonio moderno en nuestra ciudad.\n\n'
-        'Se realizo un recorrido virtual por las 23 obras catalogadas, '
-        'mostrando el sistema de geolocalizacion, las fichas tecnicas '
+        'Se realizó un recorrido virtual por las 23 obras catalogadas, '
+        'mostrando el sistema de geolocalización, las fichas técnicas '
         'y el material audiovisual asociado. Los asistentes pudieron '
-        'interactuar con un prototipo en vivo. La charla concluyo con '
-        'intercambios muy valiosos sobre la preservacion del patrimonio '
-        'arquitectonico local.',
+        'interactuar con un prototipo en vivo. La charla concluyó con '
+        'intercambios muy valiosos sobre la preservación del patrimonio '
+        'arquitectónico local.',
     nombreEvento: 'Profesorado de Artes Visuales',
     fechaEvento: DateTime(2026, 3),
     urlsImagenes: ['assets/imagenes/publicaciones/charla-artes-visuales.png'],
@@ -93,19 +93,19 @@ final List<Publicacion> publicacionesSeed = [
     id: 'pub-presentacion-3',
     titulo: 'Feria de las Carreras del IPC',
     descripcion:
-        'Tercera presentacion en la Feria de las Carreras del Instituto '
+        'Tercera presentación en la Feria de las Carreras del Instituto '
         'de Profesorado Concordia (IPC). Mostramos el proyecto a '
         'estudiantes secundarios y docentes interesados en conocer '
         'carreras vinculadas al patrimonio, la arquitectura y la '
-        'tecnologia.\n\n'
-        'Expusimos el marco teorico y metodologico del proyecto, '
-        'incluyendo el proceso de relevamiento, catalogacion y '
-        'digitalizacion de las obras de Alejo Martinez. Se destaco '
-        'el caracter interdisciplinario del trabajo: arquitectura, '
-        'historia, tecnologia y comunicacion convergiendo en una '
-        'herramienta practica para la puesta en valor del patrimonio.\n\n'
-        'La ponencia genero interes en replicar la experiencia en otras '
-        'instituciones educativas de la region.',
+        'tecnología.\n\n'
+        'Expusimos el marco teórico y metodológico del proyecto, '
+        'incluyendo el proceso de relevamiento, catalogación y '
+        'digitalización de las obras de Alejo Martínez. Se destacó '
+        'el carácter interdisciplinario del trabajo: arquitectura, '
+        'historia, tecnología y comunicación convergiendo en una '
+        'herramienta práctica para la puesta en valor del patrimonio.\n\n'
+        'La ponencia generó interés en replicar la experiencia en otras '
+        'instituciones educativas de la región.',
     nombreEvento: 'Feria de las Carreras - IPC',
     fechaEvento: DateTime(2026, 6),
     urlsImagenes: ['assets/imagenes/publicaciones/feria-carreras-ipc.jpeg'],
@@ -114,6 +114,4 @@ final List<Publicacion> publicacionesSeed = [
 ];
 
 // Alias para compatibilidad
-final List<Publicacion> publicacionesAlejo = [
-  ...publicacionesSeed,
-];
+final List<Publicacion> publicacionesAlejo = [...publicacionesSeed];

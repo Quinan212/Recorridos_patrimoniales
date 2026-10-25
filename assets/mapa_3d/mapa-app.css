@@ -1,0 +1,27 @@
+html,body,#map{margin:0;width:100%;height:100%;overflow:hidden;background:#d4dbd8;overscroll-behavior:none}
+.edge-fog{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.maplibregl-marker{z-index:4}
+.point{width:30px;height:30px;padding:0;border:2px solid white;border-radius:50%;background:#a8583a;color:white;font:bold 13px system-ui;box-shadow:0 2px 5px #24322f55;cursor:pointer;touch-action:manipulation;transition:background .15s,box-shadow .15s}
+.point.active{background:#922c2c;box-shadow:0 0 0 5px #ffffffaa,0 2px 8px #24322f88}
+.point[data-source="Catálogo de la app"]{background:#716047}
+.user-location{width:14px;height:14px;background:#247edb;border:3px solid white;border-radius:50%;box-shadow:0 0 0 10px #247edb33}
+.maplibregl-ctrl-bottom-right{bottom:6px;right:3px;z-index:6}
+.maplibregl-ctrl-attrib{font:9px system-ui;background:#ffffffc9;border-radius:4px;max-width:85vw}
+.maplibregl-ctrl-attrib a{color:#394a43}
+.heritage-popup{z-index:8;max-width:calc(100vw - 28px)}
+.heritage-popup .maplibregl-popup-content{padding:0;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 8px 28px #25362e35;font:14px system-ui;color:#34483e;animation:popup-appear .18s ease-out}
+.popup-card{display:flex;flex-direction:column;width:320px;max-width:calc(100vw - 28px);max-height:var(--popup-max-height,420px)}
+.popup-photo{display:block;width:100%;height:clamp(70px,16vh,128px);object-fit:cover;flex-shrink:0}
+.popup-body{padding:14px 16px 0;overflow:auto;min-height:0;overscroll-behavior:contain}
+.popup-tag{font-size:10px;letter-spacing:.065em;text-transform:uppercase;color:#a8583a;padding-right:22px}
+.popup-body h2{font:23px/1.15 Georgia,serif;margin:5px 22px 8px 0;color:#253b31}
+.popup-address{font-size:12px;line-height:1.4;color:#6a7a72;margin:0 0 9px}
+.popup-description{font-size:14px;line-height:1.55;margin:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden}
+.popup-footer{padding:12px 16px 14px;flex-shrink:0}
+.popup-detail{display:block;width:100%;min-height:44px;background:#d32f2f;border:0;border-radius:9px;color:#fff;font:600 14px system-ui;cursor:pointer;touch-action:manipulation}
+.popup-detail:active{background:#ae2626}
+.popup-detail:focus-visible{outline:3px solid #a8583a;outline-offset:3px}
+.heritage-popup .maplibregl-popup-close-button{width:32px;height:32px;top:7px;right:7px;border-radius:50%;background:#fffffff2;color:#34483e;box-shadow:0 1px 6px #263a3020;font:23px/1 system-ui}
+.heritage-popup .maplibregl-popup-tip{border-top-color:#fff}
+@keyframes popup-appear{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.heritage-popup .maplibregl-popup-content{animation:none}}

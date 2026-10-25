@@ -4,6 +4,11 @@ import 'package:recorridos_patrimoniales/modulos/alejo_patrimonio/servicios/conf
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RepositorioPublicaciones extends ChangeNotifier {
+  RepositorioPublicaciones({
+    Future<List<Map<String, dynamic>>> Function()? cargarFilas,
+  }) : _cargarFilas = cargarFilas;
+
+  final Future<List<Map<String, dynamic>>> Function()? _cargarFilas;
   List<Publicacion> _publicaciones = publicacionesAlejo;
   bool _estaCargando = false;
 
@@ -11,7 +16,7 @@ class RepositorioPublicaciones extends ChangeNotifier {
   bool get estaCargando => _estaCargando;
 
   Future<void> cargar() async {
-    if (!ConfiguracionSupabase.estaConfigurado) {
+    if (_cargarFilas == null && !ConfiguracionSupabase.estaConfigurado) {
       debugPrint(
         'Supabase no esta configurado. Usando datos locales de publicaciones.',
       );
@@ -22,14 +27,16 @@ class RepositorioPublicaciones extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final filas = await Supabase.instance.client
-          .from('publications')
-          .select(
-            'id,title,description,event_name,event_date,cover_image_url,'
-            'sort_order,publication_images(storage_path,public_url,caption,sort_order)',
-          )
-          .eq('is_published', true)
-          .order('sort_order');
+      final filas = _cargarFilas != null
+          ? await _cargarFilas()
+          : await Supabase.instance.client
+                .from('publications')
+                .select(
+                  'id,title,description,event_name,event_date,cover_image_url,'
+                  'sort_order,publication_images(storage_path,public_url,caption,sort_order)',
+                )
+                .eq('is_published', true)
+                .order('sort_order');
 
       final publicacionesRemotas = filas
           .map<Publicacion>(_publicacionDesdeFilaSupabase)
@@ -57,12 +64,12 @@ class RepositorioPublicaciones extends ChangeNotifier {
     List<String> captions = [];
 
     if (imagenes is List) {
-      final ordenadas =
-          imagenes.whereType<Map<String, dynamic>>().toList()..sort((a, b) {
-            final ordenA = (a['sort_order'] as num?)?.toInt() ?? 0;
-            final ordenB = (b['sort_order'] as num?)?.toInt() ?? 0;
-            return ordenA.compareTo(ordenB);
-          });
+      final ordenadas = imagenes.whereType<Map<String, dynamic>>().toList()
+        ..sort((a, b) {
+          final ordenA = (a['sort_order'] as num?)?.toInt() ?? 0;
+          final ordenB = (b['sort_order'] as num?)?.toInt() ?? 0;
+          return ordenA.compareTo(ordenB);
+        });
 
       for (final img in ordenadas) {
         final urlPublica = img['public_url'] as String?;

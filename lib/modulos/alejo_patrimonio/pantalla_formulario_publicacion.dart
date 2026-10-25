@@ -38,8 +38,8 @@ class _PantallaFormularioPublicacionState
   }
 
   Future<void> _verificarAdmin() async {
-    final estado =
-        await const ServicioDispositivoAdmin().verificarDispositivoActual();
+    final estado = await const ServicioDispositivoAdmin()
+        .verificarDispositivoActual();
     if (!mounted) return;
     setState(() {
       _esAdmin = estado.esAdmin;
@@ -66,9 +66,7 @@ class _PantallaFormularioPublicacionState
   @override
   Widget build(BuildContext context) {
     if (_verificandoAdmin) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     if (!_esAdmin) {
@@ -226,9 +224,7 @@ class _PantallaFormularioPublicacionState
                 decoration: _inputDecoration(
                   'Contanos como fue la presentacion, que se compartio, '
                   'la recepcion del publico...',
-                ).copyWith(
-                  contentPadding: const EdgeInsets.all(16),
-                ),
+                ).copyWith(contentPadding: const EdgeInsets.all(16)),
                 maxLines: 8,
                 validator: (v) =>
                     (v == null || v.trim().isEmpty) ? 'Campo requerido' : null,
@@ -304,9 +300,8 @@ class _PantallaFormularioPublicacionState
                 }
                 return _MiniaturaFoto(
                   xfile: _imagenesSeleccionadas[index],
-                  onRemove: () => setState(
-                    () => _imagenesSeleccionadas.removeAt(index),
-                  ),
+                  onRemove: () =>
+                      setState(() => _imagenesSeleccionadas.removeAt(index)),
                 );
               },
             ),
@@ -358,11 +353,11 @@ class _PantallaFormularioPublicacionState
       // 1. Crear la publicacion en Supabase
       final idPublicacion = await const ServicioAdminPublicaciones()
           .crearPublicacion(
-        titulo: _tituloController.text.trim(),
-        descripcion: _descripcionController.text.trim(),
-        nombreEvento: _eventoController.text.trim(),
-        fechaEvento: _fechaEvento,
-      );
+            titulo: _tituloController.text.trim(),
+            descripcion: _descripcionController.text.trim(),
+            nombreEvento: _eventoController.text.trim(),
+            fechaEvento: _fechaEvento,
+          );
 
       // 2. Subir imagenes seleccionadas
       if (_imagenesSeleccionadas.isNotEmpty) {
@@ -536,10 +531,7 @@ class _BotonAgregarFoto extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               'Agregar',
-              style: GoogleFonts.inter(
-                fontSize: 11,
-                color: Colors.grey[500],
-              ),
+              style: GoogleFonts.inter(fontSize: 11, color: Colors.grey[500]),
             ),
           ],
         ),
@@ -570,14 +562,15 @@ class _BotonAgregarFotoGrande extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Icon(Icons.add_photo_alternate_outlined, size: 40, color: Colors.grey[400]),
+            Icon(
+              Icons.add_photo_alternate_outlined,
+              size: 40,
+              color: Colors.grey[400],
+            ),
             const SizedBox(height: 8),
             Text(
               'Agregar fotos del evento',
-              style: GoogleFonts.inter(
-                fontSize: 14,
-                color: Colors.grey[500],
-              ),
+              style: GoogleFonts.inter(fontSize: 14, color: Colors.grey[500]),
             ),
           ],
         ),

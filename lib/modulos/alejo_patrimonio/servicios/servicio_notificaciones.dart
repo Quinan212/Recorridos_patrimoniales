@@ -45,8 +45,9 @@ class ServicioNotificaciones {
   //  CONFIGURACION LOCAL NOTIFICATIONS
   // -------------------------------------------------------------------------
   Future<void> _configurarCanalesLocales() async {
-    const androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const androidSettings = AndroidInitializationSettings(
+      '@mipmap/ic_launcher',
+    );
     const iosSettings = DarwinInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -54,10 +55,7 @@ class ServicioNotificaciones {
     );
 
     await _notificacionesLocales.initialize(
-      const InitializationSettings(
-        android: androidSettings,
-        iOS: iosSettings,
-      ),
+      const InitializationSettings(android: androidSettings, iOS: iosSettings),
       onDidReceiveNotificationResponse: (response) {
         debugPrint('Notificacion tocada: ${response.payload}');
         // TODO: Navegar al detalle de la publicacion
@@ -69,13 +67,13 @@ class ServicioNotificaciones {
     try {
       await _notificacionesLocales
           .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
+            AndroidFlutterLocalNotificationsPlugin
+          >()
           ?.createNotificationChannel(
             const AndroidNotificationChannel(
               'publicaciones',
               'Nuevas Publicaciones',
-              description:
-                  'Notificaciones cuando se publica nuevo contenido',
+              description: 'Notificaciones cuando se publica nuevo contenido',
               importance: Importance.high,
               playSound: true,
               enableVibration: true,

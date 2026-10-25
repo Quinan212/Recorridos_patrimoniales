@@ -1,0 +1,11 @@
+{
+  "type": "dense-inset-exterior-mask",
+  "inward_meters": 280,
+  "blur_meters": 220,
+  "blur_cap_px": 45,
+  "protect_meters": 220,
+  "clear_core_meters": 121,
+  "protected_point_count": 23,
+  "color": "#d4dbd8",
+  "implementation": "Niebla desplazada hacia el interior del contorno y fundida gradualmente. Puntos y fichas protegidos; proyección recortada al suelo visible y sincronizada con el render."
+}

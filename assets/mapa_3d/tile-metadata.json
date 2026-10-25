@@ -1,0 +1,53 @@
+{
+  "minzoom": 12,
+  "maxzoom": 17,
+  "extent": 4096,
+  "tolerance": 2,
+  "bounds": [
+    -58.07703984645384,
+    -31.404330473328425,
+    -58.00082248687911,
+    -31.35690807659309
+  ],
+  "layers": {
+    "buildings": {
+      "inputFeatures": 49635,
+      "features": 49635
+    },
+    "roads": {
+      "inputFeatures": 1077,
+      "features": 1077
+    },
+    "parks": {
+      "inputFeatures": 109,
+      "features": 109
+    },
+    "shadows": {
+      "inputFeatures": 1,
+      "features": 7093
+    },
+    "road-labels": {
+      "inputFeatures": 790,
+      "features": 790
+    },
+    "water": {
+      "inputFeatures": 16,
+      "features": 16
+    },
+    "paths": {
+      "inputFeatures": 281,
+      "features": 281
+    },
+    "rails": {
+      "inputFeatures": 57,
+      "features": 57
+    },
+    "details": {
+      "inputFeatures": 14,
+      "features": 14
+    }
+  },
+  "tiles": 845,
+  "bytes": 8783907,
+  "maxTileBytes": 468096
+}

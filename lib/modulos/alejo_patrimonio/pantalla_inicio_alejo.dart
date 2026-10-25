@@ -78,7 +78,7 @@ class _PantallaInicioAlejoState extends State<PantallaInicioAlejo> {
                               fit: BoxFit.scaleDown,
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Obras Arquitectonicas',
+                                'Obras Arquitectónicas',
                                 style: GoogleFonts.inter(
                                   fontSize: isNarrow ? 20 : 24,
                                   fontWeight: FontWeight.bold,
@@ -132,7 +132,7 @@ class _PantallaInicioAlejoState extends State<PantallaInicioAlejo> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(24, 24, 24, 14),
                     child: Text(
-                      'Descubre toda la obra de Alejo Martinez en la ciudad',
+                      'Descubre toda la obra de Alejo Martínez en la ciudad',
                       style: GoogleFonts.inter(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -347,7 +347,7 @@ class _PantallaInicioAlejoState extends State<PantallaInicioAlejo> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
-                      'Primera obra moderna de Argentina',
+                      'Obra destacada',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.inter(
@@ -394,30 +394,20 @@ class _PantallaInicioAlejoState extends State<PantallaInicioAlejo> {
                         Row(
                           children: [
                             const Icon(
-                              Icons.directions_walk,
+                              Icons.location_on_outlined,
                               size: 16,
                               color: Colors.white,
                             ),
                             const SizedBox(width: 6),
-                            Text(
-                              '211 m',
-                              style: GoogleFonts.inter(
-                                fontSize: 14,
-                                color: Colors.white70,
-                              ),
-                            ),
-                            const Spacer(),
-                            const Icon(
-                              Icons.near_me,
-                              size: 16,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              '610 m',
-                              style: GoogleFonts.inter(
-                                fontSize: 14,
-                                color: Colors.white70,
+                            Expanded(
+                              child: Text(
+                                punto.direccion,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  color: Colors.white70,
+                                ),
                               ),
                             ),
                           ],
@@ -573,81 +563,103 @@ class AlejoEditorialCover extends StatelessWidget {
                 final gap = lerpDouble(10, 18, scale)!;
                 final footerGap = lerpDouble(8, 16, scale)!;
 
-                return Padding(
-                  padding: EdgeInsets.fromLTRB(30, topPadding, 30, 18),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'ALEJO\nMARTINEZ',
-                          style: GoogleFonts.playfairDisplay(
-                            fontSize: titleSize,
-                            fontWeight: FontWeight.w900,
-                            height: 0.9,
-                            color: const Color(0xFF1A1A1A),
+                return SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: availableHeight),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        30,
+                        topPadding,
+                        30,
+                        18 - lift,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'ALEJO\nMARTÍNEZ',
+                                  style: GoogleFonts.playfairDisplay(
+                                    fontSize: titleSize,
+                                    fontWeight: FontWeight.w900,
+                                    height: 0.9,
+                                    color: const Color(0xFF1A1A1A),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: gap),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  height: 4,
+                                  width: lerpDouble(44, 60, scale)!,
+                                  color: const Color(0xFFD32F2F),
+                                ),
+                              ),
+                              SizedBox(height: gap),
+                              Text(
+                                'LA VANGUARDIA\nRACIONALISTA EN\nCONCORDIA',
+                                style: GoogleFonts.inter(
+                                  fontSize: subtitleSize,
+                                  letterSpacing: letterSpacing,
+                                  fontWeight: FontWeight.w300,
+                                  color: const Color(0xFF4A4A4A),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ),
-                      SizedBox(height: gap),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Container(
-                          height: 4,
-                          width: lerpDouble(44, 60, scale)!,
-                          color: const Color(0xFFD32F2F),
-                        ),
-                      ),
-                      SizedBox(height: gap),
-                      Text(
-                        'LA VANGUARDIA\nRACIONALISTA EN\nCONCORDIA',
-                        style: GoogleFonts.inter(
-                          fontSize: subtitleSize,
-                          letterSpacing: letterSpacing,
-                          fontWeight: FontWeight.w300,
-                          color: const Color(0xFF4A4A4A),
-                        ),
-                      ),
-                      const Spacer(),
-                      Transform.translate(
-                        offset: Offset(0, lift),
-                        child: _armarTarjetaRecorrido(
-                          context,
-                          title: 'RUTA DE LA INNOVACION',
-                          subtitle: 'Obras fundacionales (1924-1931)',
-                          count: '$cantidadPuntos puntos clave',
-                          onTap: onTapRoute,
-                        ),
-                      ),
-                      SizedBox(height: footerGap),
-                      Transform.translate(
-                        offset: Offset(0, lift),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'EDICION 2026',
-                              style: GoogleFonts.inter(
-                                fontSize: lerpDouble(9, 10, scale)!,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: lerpDouble(1.5, 2, scale)!,
-                              ),
+                          Padding(
+                            padding: EdgeInsets.only(top: gap),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _armarTarjetaRecorrido(
+                                  context,
+                                  title: 'RUTA DE LA INNOVACIÓN',
+                                  subtitle: 'Obras fundacionales (1924-1931)',
+                                  count: '$cantidadPuntos puntos clave',
+                                  onTap: onTapRoute,
+                                ),
+                                SizedBox(height: footerGap),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'EDICIÓN 2026',
+                                      style: GoogleFonts.inter(
+                                        fontSize: lerpDouble(9, 10, scale)!,
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: lerpDouble(
+                                          1.5,
+                                          2,
+                                          scale,
+                                        )!,
+                                      ),
+                                    ),
+                                    Text(
+                                      'A',
+                                      style: GoogleFonts.playfairDisplay(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w900,
+                                        color: Colors.grey,
+                                        fontStyle: FontStyle.italic,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            Text(
-                              'A',
-                              style: GoogleFonts.playfairDisplay(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.grey,
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 );
               },

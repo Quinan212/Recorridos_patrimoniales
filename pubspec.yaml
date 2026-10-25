@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.5+386
+version: 1.0.5+387
 
 environment:
   sdk: ^3.11.4
@@ -52,9 +52,13 @@ dependencies:
   url_launcher: ^6.3.0
   share_plus: ^13.1.0
   flutter_local_notifications: ^18.0.1
+  maplibre_gl: 0.27.1
+  path_provider: 2.1.5
 
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
   flutter_test:
     sdk: flutter
 
@@ -103,6 +107,32 @@ flutter:
     - assets/imagenes/puntos/liga-argentina-de-préstamos-mutuos/
     - assets/imagenes/miniaturas_puntos/
     - assets/imagenes/publicaciones/
+    - assets/mapa_3d/
+    - assets/mapa_3d/cartografia/details.geojson
+    - assets/mapa_3d/cartografia/castro.geojson
+    - assets/mapa_3d/cartografia/coverage.geojson
+    - assets/mapa_3d/cartografia/heritage.geojson
+    - assets/mapa_3d/fonts/
+    - assets/mapa_3d/fonts/Open Sans Semibold/
+    - assets/mapa_3d/vendor/
+    - assets/mapa_3d/contexto/13/2774/
+    - assets/mapa_3d/contexto/12/1388/
+    - assets/mapa_3d/contexto/12/1387/
+    - assets/mapa_3d/contexto/13/2775/
+    - assets/mapa_3d/contexto/13/2776/
+    - assets/mapa_3d/contexto/14/5548/
+    - assets/mapa_3d/contexto/14/5549/
+    - assets/mapa_3d/contexto/14/5550/
+    - assets/mapa_3d/contexto/14/5551/
+    - assets/mapa_3d/contexto/14/5552/
+    - assets/mapa_3d/contexto/15/11097/
+    - assets/mapa_3d/contexto/15/11098/
+    - assets/mapa_3d/contexto/15/11099/
+    - assets/mapa_3d/contexto/15/11100/
+    - assets/mapa_3d/contexto/15/11101/
+    - assets/mapa_3d/contexto/15/11102/
+    - assets/mapa_3d/contexto/15/11103/
+    - assets/mapa_3d/contexto/15/11104/
     - shorebird.yaml
 
   # An image asset can refer to one or more resolution-specific "variants", see

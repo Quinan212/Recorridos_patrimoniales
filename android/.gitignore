@@ -12,3 +12,6 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
+
+# Clave de subida y credenciales locales de publicación.
+/firma-upload/
