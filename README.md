@@ -1,108 +1,71 @@
 # Recorridos Patrimoniales
 
-**El patrimonio arquitectónico de Concordia, en un mapa para recorrerlo.**
+### Descubrir Concordia a través de su arquitectura
 
-Aplicación Flutter para descubrir edificios y sitios patrimoniales de Concordia, Entre Ríos, con fotografías, información histórica y un mapa 3D. El recorrido dedicado a Alejo Martínez reúne las obras y sus fichas en una misma experiencia.
+Recorridos Patrimoniales es una aplicación para conocer la historia de la ciudad a través de sus edificios y espacios. Reúne un mapa interactivo, fotografías, información sobre las obras y relatos en audio para acompañar visitas autoguiadas o explorar el patrimonio desde el teléfono.
 
-La rama **`principal`** contiene la versión vigente con el mapa actualizado. La versión del proyecto se define en [`pubspec.yaml`](pubspec.yaml).
+El recorrido actual está dedicado a **Alejo Martínez y su obra en Concordia, Entre Ríos**: una invitación a reconocer la arquitectura moderna en las casas, esquinas y calles que forman parte de la vida cotidiana de la ciudad.
 
-## Qué incluye
+## Una ciudad para mirar de nuevo
 
-- **Mapa 3D nativo:** edificios en relieve y selección de puntos patrimoniales.
-- **Ubicaciones verificables:** 23 puntos procedentes del KML y un punto adicional del catálogo de la app, conservando su origen.
-- **Fichas de cada lugar:** fotografías, dirección, descripción, fuentes y audio cuando está disponible.
-- **Búsqueda de lugares:** acceso al catálogo desde la búsqueda y el mapa.
-- **Cartografía local y mapa continuo:** recursos incluidos para la zona del recorrido y carga de nuevos sectores por Internet cuando está configurado el proveedor.
+Una fachada, una terraza o la forma de resolver una esquina pueden contar una historia. La app acerca esas historias a quienes viven en Concordia, la visitan o quieren conocer su patrimonio arquitectónico.
 
-La cartografía incluida no representa una descarga completa de toda la ciudad. La disponibilidad de contenido remoto y de nuevos sectores depende de la conexión y de la configuración de servicios.
+Su propósito es **educativo y cultural**: ayudar a conocer, valorar y preservar las obras, relacionando cada lugar con su historia y su entorno.
 
-## Empezar a trabajar
+## Qué podés hacer
 
-### Requisitos
+### Explorar las obras
 
-- Flutter compatible con la restricción de Dart indicada en `pubspec.yaml` (`^3.11.4`).
-- Git y, para Android, Android SDK, un JDK compatible y un emulador o dispositivo.
-- Node.js para ejecutar la comprobación adicional de límites del mapa.
+Descubrir las viviendas y edificios del recorrido, consultar obras destacadas y encontrar un lugar por su nombre o dirección. Cada punto conecta el catálogo con su ubicación en la ciudad.
 
-```sh
-git clone --branch principal https://github.com/Quinan212/Recorridos_patrimoniales.git
-cd Recorridos_patrimoniales
-flutter pub get
-flutter run
-```
+### Recorrer el mapa
 
-Android es el destino de publicación documentado. La presencia de carpetas de otras plataformas no implica que todas las funciones estén verificadas en ellas.
+Ver las obras geolocalizadas sobre un **mapa con edificios en 3D**, acercarte a una zona y cambiar entre las vistas **2D y 3D**. Los controles permiten volver al centro, ver toda la zona del recorrido y mostrar tu ubicación al habilitar el permiso del teléfono.
 
-### Servicios y configuración
+Al tocar un punto se abre una **ventana flotante** con una vista previa del lugar. Desde ahí podés ir a **«Ver ficha completa»** para conocer la obra con más detalle.
 
-Los valores de los servicios se suministran al compilar mediante `--dart-define` o un archivo local de definiciones:
+### Conocer cada lugar
 
-| Variable | Uso |
+Las fichas reúnen:
+
+- Nombre y dirección de la obra.
+- Descripción arquitectónica e información histórica.
+- Galería de fotografías que se pueden ampliar a pantalla completa.
+- Ubicación y acceso al mapa.
+- Fuentes y referencias para consultar el origen de la información.
+- Relatos en audio, cuando están disponibles para ese punto.
+
+### Escuchar y observar
+
+Los audios complementan la lectura de las fichas y permiten acompañar la visita mientras observás el edificio. Las fotografías ayudan a reconocer las obras y detenerse en sus detalles.
+
+### Conocer al arquitecto y el proyecto
+
+La sección de información presenta a Alejo Martínez, el contexto de su arquitectura, los objetivos de la propuesta, la bibliografía y los créditos de autoría.
+
+## Cuatro secciones, un mismo recorrido
+
+| Sección | Qué encontrás |
 | --- | --- |
-| `SUPABASE_URL` | Dirección del proyecto que sirve el contenido remoto. |
-| `SUPABASE_ANON_KEY` | Clave de cliente para acceder al contenido según sus permisos. |
-| `MAPTILER_KEY` | Acceso a la cartografía de sectores adicionales. |
+| **Inicio** | La entrada a la propuesta de recorridos patrimoniales. |
+| **Descubrir** | El recorrido de Alejo Martínez, sus obras y lugares destacados. |
+| **Mapa** | Los puntos del recorrido, la exploración en 2D y 3D y el acceso a las fichas. |
+| **Info** | El arquitecto, el contexto, las fuentes y los créditos del proyecto. |
 
-Ejemplo con un archivo JSON local, excluido del repositorio:
+## Para visitar o explorar desde casa
 
-```sh
-flutter run --dart-define-from-file=android/firma-upload/release-defines.json
-```
+Podés usarla para preparar una salida, reconocer una obra durante un paseo o consultar su historia sin estar en el lugar. Vos elegís qué puntos visitar y en qué orden.
 
-Consultar la [guía de publicación Android](docs/publicacion-android.md) para preparar ese archivo y la firma. Las contraseñas, claves administrativas y archivos de configuración privados se conservan fuera del control de versiones.
+El mapa incluye cartografía local de la zona del recorrido y permite cargar sectores adicionales por Internet. Los contenidos remotos, los audios y la ampliación de la cartografía pueden requerir conexión.
 
-## Cómo está organizado
+## Autoría y fuentes
 
-| Carpeta | Contenido |
-| --- | --- |
-| `lib/` | Interfaz, catálogo, búsqueda y servicios de la aplicación. |
-| `lib/modulos/alejo_patrimonio/mapa_3d/` | Integración del mapa, catálogo geográfico y almacenamiento de teselas. |
-| `assets/imagenes/` | Fotografías y recursos visuales. |
-| `assets/mapa_3d/` | Cartografía local, estilos, fuentes y recursos del visor. |
-| `test/` e `integration_test/` | Pruebas del catálogo, mapa, repositorios e interfaz. |
-| `tool/` y `scripts/` | Utilidades de desarrollo, firma y verificación. |
-| `supabase/` | Configuración y migraciones del servicio de contenido. |
-| `docs/` | Documentación técnica y de publicación. |
+Proyecto de **Flavia Marisol Frigo y Alan Gabriel Maillet**, con fines educativos y de divulgación del patrimonio arquitectónico local.
 
-## Verificar cambios
+Las fichas incorporan referencias documentales y la app reúne bibliografía sobre arquitectura, patrimonio y Concordia. Las fotografías, los textos y otros materiales conservan sus derechos y atribuciones correspondientes. Para consultas sobre su uso o reproducción, comunicarse con los autores.
 
-```sh
-flutter analyze
-flutter test
-node test/limite_area_test.cjs
-```
+La cartografía utiliza recursos de **MapTiler** y **OpenStreetMap**.
 
-Las pruebas cubren, entre otros casos, la reconciliación de las coordenadas, las fichas, la carga de teselas, la búsqueda y distintos tamaños de interfaz. La prueba de límites comprueba la geometría conservada como recurso; no implica que el mapa continuo actual bloquee el desplazamiento en ese borde.
+---
 
-## Compilar para Android
-
-Con los servicios y la firma configurados localmente:
-
-```sh
-flutter build apk --release --dart-define-from-file=android/firma-upload/release-defines.json
-flutter build appbundle --release --dart-define-from-file=android/firma-upload/release-defines.json
-```
-
-Los resultados se generan en:
-
-- APK: `build/app/outputs/flutter-apk/`.
-- AAB para Google Play: `build/app/outputs/bundle/release/`.
-
-El código de versión debe incrementarse antes de cada nueva subida a Google Play. La [guía de publicación](docs/publicacion-android.md) detalla el proceso y las herramientas de validación.
-
-### Certificado y firma
-
-- [Certificado público de subida — PEM](docs/firma/upload-certificate.pem).
-- [Keystore cifrado — JKS](docs/firma/upload-keystore.jks), publicado por decisión del propietario.
-
-El PEM identifica el certificado y no permite firmar. El JKS contiene la clave privada cifrada; para utilizarlo también hacen falta las contraseñas y la configuración local de firma. Esas contraseñas y `android/key.properties` no se publican. La copia utilizada por las herramientas de publicación permanece en `android/firma-upload/`.
-
-## Qué se guarda en Git
-
-Se versionan el código fuente, los recursos necesarios para la app, las pruebas, la documentación y `pubspec.lock`, para conservar las versiones resueltas de las dependencias.
-
-Se excluyen `build/`, `.dart_tool/`, dependencias descargadas, cachés, temporales, logs y APK/AAB. Las teselas incluidas en `assets/mapa_3d/` son recursos del mapa local y se conservan en el repositorio. Los GeoJSON intermedios de edificios y sombras no utilizados por el visor quedan fuera.
-
-## Créditos y atribuciones
-
-Conservar las atribuciones cartográficas de **MapTiler** y **OpenStreetMap**, las licencias de las bibliotecas y fuentes incluidas, y las referencias de las fichas patrimoniales. La publicación del código no sustituye las condiciones de uso de la cartografía, fotografías y demás recursos de terceros.
+Para información de desarrollo y publicación, consultar la [documentación técnica](docs/publicacion-android.md).
